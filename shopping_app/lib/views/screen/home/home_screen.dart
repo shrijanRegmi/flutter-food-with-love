@@ -32,52 +32,47 @@ class _HomeScreenState extends State<HomeScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Column(
-        children: [
-          Expanded(
-            child: FoodWithLoveTabview(
-              controller: _controller,
-              views: [
-                SearchTab(),
-                FavouritesTab(),
-                ExploreTab(),
-                ShoppingCartTab(),
-                ProfileTab(),
-              ],
-            ),
+        child: FoodWithLoveTabview(
+          controller: _controller,
+          views: [
+            SearchTab(),
+            FavouritesTab(),
+            ExploreTab(),
+            ShoppingCartTab(),
+            ProfileTab(),
+          ],
+        ),
+      ),
+      bottomNavigationBar: FoodWithLoveTabbar(
+        controller: _controller,
+        tabs: (activIndex) => [
+          FoodWithLoveIconButton(
+            icon: Icons.search_outlined,
+            bgColor: activIndex == 0 ? Colors.pink : null,
+            iconColor: activIndex == 0 ? Colors.white : null,
           ),
-          FoodWithLoveTabbar(
-            controller: _controller,
-            tabs: (activIndex) => [
-              FoodWithLoveIconButton(
-                icon: Icons.search_outlined,
-                bgColor: activIndex == 0 ? Colors.pink : null,
-                iconColor: activIndex == 0 ? Colors.white : null,
-              ),
-              FoodWithLoveIconButton(
-                icon: Icons.favorite_border,
-                iconColor: activIndex == 1 ? Colors.white : null,
-                bgColor: activIndex == 1 ? Colors.pink : null,
-              ),
-              FoodWithLoveIconButton(
-                icon: Icons.home_outlined,
-                iconColor: activIndex == 2 ? Colors.white : null,
-                bgColor: activIndex == 2 ? Colors.pink : null,
-              ),
-              FoodWithLoveIconButton(
-                icon: Icons.shopping_cart_outlined,
-                iconColor: activIndex == 3 ? Colors.white : null,
-                bgColor: activIndex == 3 ? Colors.pink : null,
-              ),
-              FoodWithLoveIconButton(
-                icon: Icons.person_outline,
-                iconColor: activIndex == 4 ? Colors.white : null,
-                bgColor: activIndex == 4 ? Colors.pink : null,
-              ),
-            ],
+          FoodWithLoveIconButton(
+            icon: Icons.favorite_border,
+            iconColor: activIndex == 1 ? Colors.white : null,
+            bgColor: activIndex == 1 ? Colors.pink : null,
+          ),
+          FoodWithLoveIconButton(
+            icon: Icons.home_outlined,
+            iconColor: activIndex == 2 ? Colors.white : null,
+            bgColor: activIndex == 2 ? Colors.pink : null,
+          ),
+          FoodWithLoveIconButton(
+            icon: Icons.shopping_cart_outlined,
+            iconColor: activIndex == 3 ? Colors.white : null,
+            bgColor: activIndex == 3 ? Colors.pink : null,
+          ),
+          FoodWithLoveIconButton(
+            icon: Icons.person_outline,
+            iconColor: activIndex == 4 ? Colors.white : null,
+            bgColor: activIndex == 4 ? Colors.pink : null,
           ),
         ],
-      )),
+      ),
     );
   }
 }

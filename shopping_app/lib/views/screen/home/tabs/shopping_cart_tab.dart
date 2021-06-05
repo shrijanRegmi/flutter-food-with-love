@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_with_love/food_with_love.dart';
+import 'package:shopping_app/test_data.dart';
 
 class ShoppingCartTab extends StatelessWidget {
   const ShoppingCartTab({Key? key}) : super(key: key);
@@ -14,6 +15,14 @@ class ShoppingCartTab extends StatelessWidget {
         FoodWithLoveHeader(title: 'Shopping Cart'),
         SizedBox(
           height: 20.0,
+        ),
+        Expanded(
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: FoodWithLoveShoppingCartList(
+              shoppingCarts: shoppingCarts,
+            ),
+          ),
         ),
       ],
     );

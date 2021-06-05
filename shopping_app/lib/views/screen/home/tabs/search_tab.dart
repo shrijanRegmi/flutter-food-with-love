@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_with_love/food_with_love.dart';
 
+import '../../../../test_data.dart';
+
 class SearchTab extends StatelessWidget {
   const SearchTab({Key? key}) : super(key: key);
 
@@ -17,12 +19,31 @@ class SearchTab extends StatelessWidget {
         ),
         FoodWithLoveSearchBar(),
         SizedBox(
-          height: 50.0,
+          height: 20.0,
         ),
-        FoodWithLoveLeftRightText(
-          leftText: 'Last Searches',
-          rightText: 'Clear All',
-          onPressed: () {},
+        Expanded(
+          child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                FoodWithLoveLeftRightText(
+                  leftText: 'Last Searches',
+                  rightText: 'Clear All',
+                  onPressed: () {},
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                FoodWithLoveProductsList(
+                  products: foodProducts,
+                  itemBuilder: (context, index) {
+                    final _product = foodProducts[index];
+                    return FoodWithLoveProductItem.outlined(product: _product);
+                  },
+                ),
+              ],
+            ),
+          ),
         ),
       ],
     );

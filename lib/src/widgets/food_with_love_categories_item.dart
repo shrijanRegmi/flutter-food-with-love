@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_with_love/models/food_category_model.dart';
 import 'package:food_with_love/src/shared/app_colors.dart';
@@ -21,6 +22,13 @@ class FoodWithLoveCategoriesItem extends StatelessWidget {
               decoration: BoxDecoration(
                 color: kcExtraLightGreenColor,
                 borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Center(
+                child: CachedNetworkImage(
+                  height: 50.0,
+                  width: 50.0,
+                  imageUrl: '${category.imgUrl}',
+                ),
               ),
             ),
           ),

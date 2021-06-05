@@ -3,6 +3,7 @@ import 'package:food_with_love/food_with_love.dart';
 
 class FoodProduct {
   final String? id;
+  final String? imgUrl;
   final String? title;
   final String? subTitle;
   final int? price;
@@ -12,6 +13,7 @@ class FoodProduct {
 
   FoodProduct({
     this.id,
+    this.imgUrl,
     this.title,
     this.subTitle,
     this.price,
@@ -22,6 +24,7 @@ class FoodProduct {
 
   FoodProduct copyWith({
     final String? id,
+    final String? imgUrl,
     final String? title,
     final String? subTitle,
     final int? price,
@@ -31,6 +34,7 @@ class FoodProduct {
   }) {
     return FoodProduct(
       id: id ?? this.id,
+      imgUrl: imgUrl ?? this.imgUrl,
       title: title ?? this.title,
       subTitle: subTitle ?? this.subTitle,
       price: price ?? this.price,
@@ -43,6 +47,7 @@ class FoodProduct {
   static FoodProduct fromJson(final Map<String, dynamic> data) {
     return FoodProduct(
       id: data['id'],
+      imgUrl: data['img_url'],
       title: data['title'],
       subTitle: data['sub_title'],
       price: data['price'],
@@ -57,6 +62,7 @@ class FoodProduct {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
+      'img_url': imgUrl,
       'title': title,
       'sub_title': subTitle,
       'price': price,

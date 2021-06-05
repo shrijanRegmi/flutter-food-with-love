@@ -47,26 +47,7 @@ class ExploreTab extends StatelessWidget {
             height: 10.0,
           ),
           FoodWithLoveProductsList(
-            products: [
-              FoodProduct(
-                title: 'Pepper',
-                subTitle: 'Gurugram Mandi Haryana',
-                price: 120,
-                color: Color(0xffF79256),
-              ),
-              FoodProduct(
-                title: 'Pepper',
-                subTitle: 'Gurugram Mandi Haryana',
-                price: 120,
-                color: Color(0xffF79256),
-              ),
-              FoodProduct(
-                title: 'Pepper',
-                subTitle: 'Gurugram Mandi Haryana',
-                price: 120,
-                color: Color(0xffF79256),
-              ),
-            ],
+            products: foodProducts,
           ),
           SizedBox(
             height: 100.0,
