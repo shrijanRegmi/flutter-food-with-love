@@ -1,0 +1,4 @@
+enum FoodProductStyle {
+  filled,
+  outlined,
+}
