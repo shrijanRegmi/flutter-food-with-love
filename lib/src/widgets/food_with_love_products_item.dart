@@ -16,7 +16,7 @@ class FoodWithLoveProductItem extends StatelessWidget {
     return Container(
       height: 200.0,
       decoration: BoxDecoration(
-        color: Color(product.color),
+        color: product.color,
         borderRadius: BorderRadius.circular(20.0),
       ),
     );

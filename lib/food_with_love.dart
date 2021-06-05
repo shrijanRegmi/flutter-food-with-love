@@ -11,7 +11,11 @@ export 'src/widgets/food_with_love_products_item.dart';
 export 'src/widgets/food_with_love_icon_button.dart';
 export 'src/widgets/food_with_love_tabbar.dart';
 export 'src/widgets/food_with_love_tabview.dart';
+export 'src/widgets/food_with_love_header.dart';
 
 // models
 export 'models/food_category_model.dart';
 export 'models/food_product_model.dart';
+export 'models/food_category_model.dart';
+export 'models/user_model.dart';
+export 'models/shopping_cart_model.dart';
