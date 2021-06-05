@@ -1,0 +1,4 @@
+enum AvatarStyle {
+  normal,
+  bordered,
+}

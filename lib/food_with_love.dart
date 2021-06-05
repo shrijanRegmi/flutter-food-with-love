@@ -14,6 +14,9 @@ export 'src/widgets/food_with_love_tabview.dart';
 export 'src/widgets/food_with_love_header.dart';
 export 'src/widgets/food_with_love_shopping_cart_list.dart';
 export 'src/widgets/food_with_love_shopping_cart_item.dart';
+export 'src/widgets/food_with_love_avatar.dart';
+export 'src/widgets/food_with_love_options_list.dart';
+export 'src/widgets/food_with_love_options_item.dart';
 
 // models
 export 'models/food_category_model.dart';
@@ -21,3 +24,4 @@ export 'models/food_product_model.dart';
 export 'models/food_category_model.dart';
 export 'models/user_model.dart';
 export 'models/shopping_cart_model.dart';
+export 'models/option_model.dart';

@@ -112,7 +112,7 @@ class FoodWithLoveShoppingCartItem extends StatelessWidget {
           ),
         ),
         Text(
-          'ID: ${shoppingCart.foodProduct?.title}'.toUpperCase(),
+          'ID: ${shoppingCart.foodProduct?.id}'.toUpperCase(),
           style: TextStyle(
             fontSize: 12.0,
             color: Colors.grey,

@@ -145,3 +145,72 @@ final shoppingCarts = <FoodShoppingCart>[
     totalPrice: foodProducts[3].price,
   ),
 ];
+
+final options = <FoodWithLoveOption>[
+  FoodWithLoveOption(
+    leftIcon: Icon(
+      Icons.person,
+      color: Colors.grey,
+    ),
+    rightIcon: Icon(
+      Icons.keyboard_arrow_right,
+    ),
+    title: 'Edit Profile',
+    onPressed: () {},
+  ),
+  FoodWithLoveOption(
+    leftIcon: Icon(
+      Icons.local_shipping,
+      color: Colors.grey,
+    ),
+    rightIcon: Icon(
+      Icons.keyboard_arrow_right,
+    ),
+    title: 'Shipping Address',
+    onPressed: () {},
+  ),
+  FoodWithLoveOption(
+    leftIcon: Icon(
+      Icons.favorite,
+      color: Colors.grey,
+    ),
+    rightIcon: Icon(
+      Icons.keyboard_arrow_right,
+    ),
+    title: 'Wishlist',
+    onPressed: () {},
+  ),
+  FoodWithLoveOption(
+    leftIcon: Icon(
+      Icons.menu_book_rounded,
+      color: Colors.grey,
+    ),
+    rightIcon: Icon(
+      Icons.keyboard_arrow_right,
+    ),
+    title: 'Order History',
+    onPressed: () {},
+  ),
+  FoodWithLoveOption(
+    leftIcon: Icon(
+      Icons.notifications,
+      color: Colors.grey,
+    ),
+    rightIcon: Icon(
+      Icons.keyboard_arrow_right,
+    ),
+    title: 'Notifications',
+    onPressed: () {},
+  ),
+  FoodWithLoveOption(
+    leftIcon: Icon(
+      Icons.exit_to_app,
+      color: Colors.grey,
+    ),
+    rightIcon: Icon(
+      Icons.keyboard_arrow_right,
+    ),
+    title: 'Log out',
+    onPressed: () {},
+  ),
+];
