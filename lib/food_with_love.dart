@@ -17,6 +17,9 @@ export 'src/widgets/food_with_love_shopping_cart_item.dart';
 export 'src/widgets/food_with_love_avatar.dart';
 export 'src/widgets/food_with_love_options_list.dart';
 export 'src/widgets/food_with_love_options_item.dart';
+export 'src/widgets/food_with_love_input.dart';
+export 'src/widgets/food_with_love_button.dart';
+export 'src/widgets/food_with_love_text.dart';
 
 // models
 export 'models/food_category_model.dart';
@@ -25,3 +28,6 @@ export 'models/food_category_model.dart';
 export 'models/user_model.dart';
 export 'models/shopping_cart_model.dart';
 export 'models/option_model.dart';
+
+// colors
+export 'src/shared/app_colors.dart';
