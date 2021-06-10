@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:food_with_love/enums/food_product_style.dart';
 import 'package:food_with_love/models/food_product_model.dart';
 import 'package:food_with_love/src/shared/app_colors.dart';
+import 'package:food_with_love/src/widgets/food_with_love_button.dart';
 
-class FoodWithLoveProductItem extends StatelessWidget {
+class FoodWithLoveProductItem extends StatefulWidget {
   final FoodProduct product;
   final FoodProductStyle style;
 
@@ -14,9 +15,18 @@ class FoodWithLoveProductItem extends StatelessWidget {
       : style = FoodProductStyle.outlined;
 
   @override
+  _FoodWithLoveProductItemState createState() =>
+      _FoodWithLoveProductItemState();
+}
+
+class _FoodWithLoveProductItemState extends State<FoodWithLoveProductItem> {
+  bool _isAdding = false;
+  int _count = 1;
+
+  @override
   Widget build(BuildContext context) {
     var _widget;
-    switch (style) {
+    switch (widget.style) {
       case FoodProductStyle.filled:
         _widget = _filledBuilder();
         break;
@@ -30,38 +40,104 @@ class FoodWithLoveProductItem extends StatelessWidget {
     return _widget;
   }
 
+  Widget _addBuilder() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            IconButton(
+              icon: Icon(
+                Icons.close,
+              ),
+              color: Colors.brown,
+              onPressed: () => setState(() => _isAdding = false),
+            ),
+          ],
+        ),
+        IconButton(
+          icon: Icon(
+            Icons.add_circle,
+          ),
+          iconSize: 30.0,
+          color: Colors.brown,
+          onPressed: () => setState(() => ++_count),
+        ),
+        Text(
+          "$_count",
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.brown,
+            fontSize: 16.0,
+          ),
+        ),
+        IconButton(
+          icon: Icon(Icons.remove_circle),
+          color: Colors.brown,
+          iconSize: 30.0,
+          onPressed: () => setState(() => _count != 1 ? --_count : _count),
+        ),
+        SizedBox(
+          height: 10.0,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            FoodWithLoveButton.filled(
+              value: 'Bag It',
+              borderRadius: 50.0,
+              icon: Icon(
+                Icons.shopping_bag,
+              ),
+              color: Colors.brown,
+              padding:
+                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              onPressed: () {},
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 20.0,
+        ),
+      ],
+    );
+  }
+
   Widget _filledBuilder() {
     return Container(
       height: 200.0,
       decoration: BoxDecoration(
-        color: product.color,
+        color: widget.product.color,
         borderRadius: BorderRadius.circular(20.0),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _addBtnBuilder(),
-          Expanded(
-            child: Padding(
-              padding:
-                  const EdgeInsets.only(left: 20.0, right: 20.0, bottom: 20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _imgBuilder(),
-                  SizedBox(
-                    height: 10.0,
+      child: _isAdding
+          ? _addBuilder()
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _addBtnBuilder(),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 20.0, right: 20.0, bottom: 20.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _imgBuilder(),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        _titleAndSubTitleBuilder(),
+                        _priceBuilder(),
+                      ],
+                    ),
                   ),
-                  _titleAndSubTitleBuilder(),
-                  _priceBuilder(),
-                ],
-              ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
     );
   }
 
@@ -74,19 +150,21 @@ class FoodWithLoveProductItem extends StatelessWidget {
           color: kcExtraLightGreenColor,
         ),
       ),
-      padding: const EdgeInsets.all(20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _imgBuilderOutlined(),
-          SizedBox(
-            height: 10.0,
-          ),
-          _titleAndSubTitleBuilderOutlined(),
-          _priceBuilderOutlined(),
-        ],
-      ),
+      padding: EdgeInsets.all(_isAdding ? 0.0 : 20.0),
+      child: _isAdding
+          ? _addBuilder()
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                _imgBuilderOutlined(),
+                SizedBox(
+                  height: 10.0,
+                ),
+                _titleAndSubTitleBuilderOutlined(),
+                _priceBuilderOutlined(),
+              ],
+            ),
     );
   }
 
@@ -94,18 +172,21 @@ class FoodWithLoveProductItem extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Container(
-          padding: const EdgeInsets.all(10.0),
-          decoration: BoxDecoration(
-            color: Colors.white54,
-            borderRadius: BorderRadius.only(
-              topRight: Radius.circular(20.0),
-              bottomLeft: Radius.circular(20.0),
+        GestureDetector(
+          onTap: () => setState(() => _isAdding = true),
+          child: Container(
+            padding: const EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              color: Colors.white54,
+              borderRadius: BorderRadius.only(
+                topRight: Radius.circular(20.0),
+                bottomLeft: Radius.circular(20.0),
+              ),
             ),
-          ),
-          child: Icon(
-            Icons.add,
-            color: Colors.brown[400],
+            child: Icon(
+              Icons.add,
+              color: Colors.brown[400],
+            ),
           ),
         ),
       ],
@@ -119,7 +200,7 @@ class FoodWithLoveProductItem extends StatelessWidget {
           CachedNetworkImage(
             width: 80.0,
             height: 80.0,
-            imageUrl: '${product.imgUrl}',
+            imageUrl: '${widget.product.imgUrl}',
           ),
           SizedBox(
             height: 15.0,
@@ -137,14 +218,14 @@ class FoodWithLoveProductItem extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(15.0),
           decoration: BoxDecoration(
-            color: product.color,
+            color: widget.product.color,
             borderRadius: BorderRadius.circular(20.0),
           ),
           child: Center(
             child: CachedNetworkImage(
               width: 75.0,
               height: 75.0,
-              imageUrl: '${product.imgUrl}',
+              imageUrl: '${widget.product.imgUrl}',
             ),
           ),
         ),
@@ -172,10 +253,10 @@ class FoodWithLoveProductItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '${product.title}',
+          '${widget.product.title}',
         ),
         Text(
-          '${product.subTitle}',
+          '${widget.product.subTitle}',
           style: TextStyle(
             fontSize: 10.0,
             color: Colors.brown,
@@ -190,13 +271,13 @@ class FoodWithLoveProductItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '${product.title}',
+          '${widget.product.title}',
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          '${product.subTitle}',
+          '${widget.product.subTitle}',
           style: TextStyle(
             fontSize: 10.0,
             color: Colors.grey,
@@ -211,7 +292,7 @@ class FoodWithLoveProductItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Rs ${product.price}',
+          'Rs ${widget.product.price}',
           style: TextStyle(
             fontWeight: FontWeight.bold,
           ),
@@ -234,7 +315,7 @@ class FoodWithLoveProductItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Rs ${product.price}',
+              'Rs ${widget.product.price}',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16.0,
@@ -253,7 +334,7 @@ class FoodWithLoveProductItem extends StatelessWidget {
             Icons.add_circle,
             color: kcLightGreenColor,
           ),
-          onTap: () {},
+          onTap: () => setState(() => _isAdding = true),
         ),
       ],
     );

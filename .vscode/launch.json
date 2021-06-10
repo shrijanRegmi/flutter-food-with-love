@@ -1,15 +1,16 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "shopping_app",
-            "cwd": "shopping_app",
-            "request": "launch",
-            "type": "dart",
-            "program": "../shopping_app/lib/main.dart"
-        },
-    ]
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "shopping_app",
+      "cwd": "shopping_app",
+      "request": "launch",
+      "type": "dart",
+      "program": "../shopping_app/lib/main.dart",
+      "args": ["--web-renderer", "html"]
+    }
+  ]
 }

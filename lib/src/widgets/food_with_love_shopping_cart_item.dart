@@ -3,12 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:food_with_love/food_with_love.dart';
 import 'package:food_with_love/src/shared/app_colors.dart';
 
-class FoodWithLoveShoppingCartItem extends StatelessWidget {
+class FoodWithLoveShoppingCartItem extends StatefulWidget {
   final FoodShoppingCart shoppingCart;
   const FoodWithLoveShoppingCartItem({
     Key? key,
     required this.shoppingCart,
   }) : super(key: key);
+
+  @override
+  _FoodWithLoveShoppingCartItemState createState() =>
+      _FoodWithLoveShoppingCartItemState();
+}
+
+class _FoodWithLoveShoppingCartItemState
+    extends State<FoodWithLoveShoppingCartItem> {
+  int _count = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +73,7 @@ class FoodWithLoveShoppingCartItem extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(15.0),
       decoration: BoxDecoration(
-        color: shoppingCart.foodProduct?.color,
+        color: widget.shoppingCart.foodProduct?.color,
         borderRadius: BorderRadius.circular(20.0),
       ),
       child: Center(
@@ -73,7 +82,7 @@ class FoodWithLoveShoppingCartItem extends StatelessWidget {
             CachedNetworkImage(
               width: 75.0,
               height: 75.0,
-              imageUrl: '${shoppingCart.foodProduct?.imgUrl}',
+              imageUrl: '${widget.shoppingCart.foodProduct?.imgUrl}',
             ),
             SizedBox(
               height: 15.0,
@@ -105,14 +114,14 @@ class FoodWithLoveShoppingCartItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '${shoppingCart.foodProduct?.title}'.toUpperCase(),
+          '${widget.shoppingCart.foodProduct?.title}'.toUpperCase(),
           style: TextStyle(
             fontSize: 16.0,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          'ID: ${shoppingCart.foodProduct?.id}'.toUpperCase(),
+          'ID: ${widget.shoppingCart.foodProduct?.id}'.toUpperCase(),
           style: TextStyle(
             fontSize: 12.0,
             color: Colors.grey,
@@ -127,14 +136,14 @@ class FoodWithLoveShoppingCartItem extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Rs ${shoppingCart.foodProduct?.price}',
+          'Rs ${(widget.shoppingCart.foodProduct?.price ?? 0) * _count}',
           style: TextStyle(
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          'per kg',
+          _count == 1 ? 'per kg' : 'for $_count kgs',
           style: TextStyle(
             fontSize: 12.0,
           ),
@@ -147,18 +156,21 @@ class FoodWithLoveShoppingCartItem extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Container(
-          width: 40.0,
-          height: 35.0,
-          decoration: BoxDecoration(
-            color: Colors.green,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
+        GestureDetector(
+          onTap: () => setState(() => _count != 1 ? --_count : 1),
+          child: Container(
+            width: 40.0,
+            height: 35.0,
+            decoration: BoxDecoration(
+              color: Colors.green,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.0),
+              ),
             ),
-          ),
-          child: Icon(
-            Icons.remove,
-            color: Colors.white,
+            child: Icon(
+              Icons.remove,
+              color: Colors.white,
+            ),
           ),
         ),
         SizedBox(
@@ -172,7 +184,7 @@ class FoodWithLoveShoppingCartItem extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              '1',
+              '$_count',
               style: TextStyle(
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
@@ -184,18 +196,21 @@ class FoodWithLoveShoppingCartItem extends StatelessWidget {
         SizedBox(
           width: 1.0,
         ),
-        Container(
-          width: 40.0,
-          height: 35.0,
-          decoration: BoxDecoration(
-            color: Colors.green,
-            borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(20.0),
+        GestureDetector(
+          onTap: () => setState(() => ++_count),
+          child: Container(
+            width: 40.0,
+            height: 35.0,
+            decoration: BoxDecoration(
+              color: Colors.green,
+              borderRadius: BorderRadius.only(
+                bottomRight: Radius.circular(20.0),
+              ),
             ),
-          ),
-          child: Icon(
-            Icons.add,
-            color: Colors.white,
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
           ),
         ),
       ],
