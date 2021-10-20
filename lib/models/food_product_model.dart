@@ -6,6 +6,7 @@ class FoodProduct {
   final String? imgUrl;
   final String? title;
   final String? subTitle;
+  final String? description;
   final int? price;
   final Color? color;
   final FoodCategory? category;
@@ -16,6 +17,7 @@ class FoodProduct {
     this.imgUrl,
     this.title,
     this.subTitle,
+    this.description,
     this.price,
     this.color,
     this.category,
@@ -27,6 +29,7 @@ class FoodProduct {
     final String? imgUrl,
     final String? title,
     final String? subTitle,
+    final String? description,
     final int? price,
     final Color? color,
     final FoodCategory? category,
@@ -37,6 +40,7 @@ class FoodProduct {
       imgUrl: imgUrl ?? this.imgUrl,
       title: title ?? this.title,
       subTitle: subTitle ?? this.subTitle,
+      description: description ?? this.description,
       price: price ?? this.price,
       color: color ?? this.color,
       category: category ?? this.category,
@@ -50,6 +54,7 @@ class FoodProduct {
       imgUrl: data['img_url'],
       title: data['title'],
       subTitle: data['sub_title'],
+      description: data['description'],
       price: data['price'],
       color: data['color'] == null ? Colors.pink : Color(data['color']),
       category: data['category'] == null

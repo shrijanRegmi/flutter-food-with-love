@@ -20,6 +20,8 @@ export 'src/widgets/food_with_love_options_item.dart';
 export 'src/widgets/food_with_love_input.dart';
 export 'src/widgets/food_with_love_button.dart';
 export 'src/widgets/food_with_love_text.dart';
+export 'src/widgets/food_with_love_similar_products_list.dart';
+export 'src/widgets/food_with_love_similar_products_item.dart';
 
 // models
 export 'models/food_category_model.dart';

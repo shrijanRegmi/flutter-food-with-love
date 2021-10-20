@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_with_love/food_with_love.dart';
 
 import '../../../../test_data.dart';
+import '../view_product_screen.dart';
 
 class FavouritesTab extends StatelessWidget {
   const FavouritesTab({Key? key}) : super(key: key);
@@ -22,6 +23,14 @@ class FavouritesTab extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             child: FoodWithLoveProductsList(
               products: foodProducts,
+              onPressProduct: (product) => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => ViewProductScreen(
+                    product: product,
+                  ),
+                ),
+              ),
             ),
           ),
         ),

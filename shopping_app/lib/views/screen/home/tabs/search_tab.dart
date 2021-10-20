@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_with_love/food_with_love.dart';
+import 'package:shopping_app/views/screen/home/view_product_screen.dart';
 
 import '../../../../test_data.dart';
 
@@ -40,6 +41,14 @@ class SearchTab extends StatelessWidget {
                     final _product = foodProducts[index];
                     return FoodWithLoveProductItem.outlined(product: _product);
                   },
+                  onPressProduct: (product) => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => ViewProductScreen(
+                        product: product,
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
