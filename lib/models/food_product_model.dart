@@ -8,6 +8,8 @@ class FoodProduct {
   final String? subTitle;
   final String? description;
   final int? price;
+  final int? shippingPrice;
+  final int? quantity;
   final Color? color;
   final FoodCategory? category;
   final Map<String, dynamic>? extraData;
@@ -19,6 +21,8 @@ class FoodProduct {
     this.subTitle,
     this.description,
     this.price,
+    this.shippingPrice,
+    this.quantity,
     this.color,
     this.category,
     this.extraData,
@@ -31,6 +35,8 @@ class FoodProduct {
     final String? subTitle,
     final String? description,
     final int? price,
+    final int? shippingPrice,
+    final int? quantity,
     final Color? color,
     final FoodCategory? category,
     final Map<String, dynamic>? extraData,
@@ -42,6 +48,8 @@ class FoodProduct {
       subTitle: subTitle ?? this.subTitle,
       description: description ?? this.description,
       price: price ?? this.price,
+      shippingPrice: shippingPrice ?? this.shippingPrice,
+      quantity: quantity ?? this.quantity,
       color: color ?? this.color,
       category: category ?? this.category,
       extraData: extraData ?? this.extraData,
@@ -56,6 +64,8 @@ class FoodProduct {
       subTitle: data['sub_title'],
       description: data['description'],
       price: data['price'],
+      shippingPrice: data['shipping_price'],
+      quantity: data['quantity'],
       color: data['color'] == null ? Colors.pink : Color(data['color']),
       category: data['category'] == null
           ? null
@@ -71,6 +81,8 @@ class FoodProduct {
       'title': title,
       'sub_title': subTitle,
       'price': price,
+      'shipping_price': shippingPrice,
+      'quantity': quantity,
       'color': color?.value.toRadixString(16),
       'category': category?.toJson(),
       'extra_data': extraData ?? {},

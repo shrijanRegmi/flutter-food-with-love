@@ -21,9 +21,14 @@ class ShoppingCartTab extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             child: FoodWithLoveShoppingCartList(
               shoppingCarts: shoppingCarts,
+              onQuantityUpdate: (shoppingCart, quantity) {
+                print('${shoppingCart.foodProduct?.title}');
+                print('$quantity');
+              },
             ),
           ),
         ),
+        FoodWithLoveCheckoutBlock(shoppingCarts),
       ],
     );
   }

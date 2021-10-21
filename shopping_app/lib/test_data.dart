@@ -138,19 +138,15 @@ final foodProducts = <FoodProduct>[
 final shoppingCarts = <FoodShoppingCart>[
   FoodShoppingCart(
     foodProduct: foodProducts[0],
-    totalPrice: foodProducts[0].price,
   ),
   FoodShoppingCart(
     foodProduct: foodProducts[1],
-    totalPrice: foodProducts[1].price,
   ),
   FoodShoppingCart(
     foodProduct: foodProducts[2],
-    totalPrice: foodProducts[2].price,
   ),
   FoodShoppingCart(
     foodProduct: foodProducts[3],
-    totalPrice: foodProducts[3].price,
   ),
 ];
 

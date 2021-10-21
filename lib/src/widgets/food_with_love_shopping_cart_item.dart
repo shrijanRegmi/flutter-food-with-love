@@ -5,9 +5,11 @@ import 'package:food_with_love/src/shared/app_colors.dart';
 
 class FoodWithLoveShoppingCartItem extends StatefulWidget {
   final FoodShoppingCart shoppingCart;
+  final Function(int) onQuantityUpdate;
   const FoodWithLoveShoppingCartItem({
     Key? key,
     required this.shoppingCart,
+    required this.onQuantityUpdate,
   }) : super(key: key);
 
   @override
@@ -157,7 +159,10 @@ class _FoodWithLoveShoppingCartItemState
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         GestureDetector(
-          onTap: () => setState(() => _count != 1 ? --_count : 1),
+          onTap: () {
+            setState(() => _count != 1 ? --_count : 1);
+            widget.onQuantityUpdate(_count);
+          },
           child: Container(
             width: 40.0,
             height: 35.0,
@@ -197,7 +202,10 @@ class _FoodWithLoveShoppingCartItemState
           width: 1.0,
         ),
         GestureDetector(
-          onTap: () => setState(() => ++_count),
+          onTap: () {
+            setState(() => ++_count);
+            widget.onQuantityUpdate(_count);
+          },
           child: Container(
             width: 40.0,
             height: 35.0,
