@@ -22,7 +22,7 @@ class ShoppingCartTab extends StatelessWidget {
             child: FoodWithLoveShoppingCartList(
               shoppingCarts: shoppingCarts,
               onQuantityUpdate: (shoppingCart, quantity) {
-                print('${shoppingCart.foodProduct?.title}');
+                print('${shoppingCart.foodProduct.title}');
                 print('$quantity');
               },
             ),

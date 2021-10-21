@@ -2,29 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:food_with_love/food_with_love.dart';
 
 class FoodProduct {
-  final String? id;
-  final String? imgUrl;
-  final String? title;
-  final String? subTitle;
-  final String? description;
-  final int? price;
-  final int? shippingPrice;
-  final int? quantity;
-  final Color? color;
-  final FoodCategory? category;
+  final String id;
+  final String imgUrl;
+  final String title;
+  final String subTitle;
+  final String description;
+  final int price;
+  final int shippingPrice;
+  final int quantity;
+  final Color color;
+  final FoodCategory category;
   final Map<String, dynamic>? extraData;
 
   FoodProduct({
-    this.id,
-    this.imgUrl,
-    this.title,
-    this.subTitle,
-    this.description,
-    this.price,
-    this.shippingPrice,
-    this.quantity,
-    this.color,
-    this.category,
+    required this.id,
+    required this.imgUrl,
+    required this.title,
+    required this.subTitle,
+    required this.description,
+    required this.price,
+    required this.shippingPrice,
+    required this.quantity,
+    required this.color,
+    required this.category,
     this.extraData,
   });
 
@@ -67,9 +67,7 @@ class FoodProduct {
       shippingPrice: data['shipping_price'],
       quantity: data['quantity'],
       color: data['color'] == null ? Colors.pink : Color(data['color']),
-      category: data['category'] == null
-          ? null
-          : FoodCategory.fromJson(data['category']),
+      category: FoodCategory.fromJson(data['category']),
       extraData: data['extra_data'],
     );
   }
@@ -83,8 +81,8 @@ class FoodProduct {
       'price': price,
       'shipping_price': shippingPrice,
       'quantity': quantity,
-      'color': color?.value.toRadixString(16),
-      'category': category?.toJson(),
+      'color': color.value.toRadixString(16),
+      'category': category.toJson(),
       'extra_data': extraData ?? {},
     };
   }
