@@ -39,6 +39,7 @@ class FoodWithLoveInput extends StatelessWidget {
       ),
       child: TextFormField(
         obscureText: password,
+        controller: controller,
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: TextStyle(

@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_with_love/food_with_love.dart';
 import 'package:shopping_app/test_data.dart';
+import 'package:shopping_app/viewmodels/view_product_vm.dart';
+import 'package:shopping_app/viewmodels/vm_provider.dart';
 
 class ViewProductScreen extends StatelessWidget {
   final FoodProduct product;
@@ -12,29 +14,35 @@ class ViewProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: product.color,
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: Icon(Icons.arrow_back_ios),
-                ),
+    return VMProvider<ViewProductVm>(
+      vm: ViewProductVm(context, product),
+      onInit: (vm) => vm.onInit(),
+      builder: (context, vm, appUser) {
+        return Scaffold(
+          backgroundColor: product.color,
+          body: SafeArea(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: Icon(Icons.arrow_back_ios),
+                    ),
+                  ),
+                  _imgBuilder(context),
+                  SizedBox(
+                    height: 50.0,
+                  ),
+                  _detailsBuilder(context),
+                ],
               ),
-              _imgBuilder(context),
-              SizedBox(
-                height: 50.0,
-              ),
-              _detailsBuilder(context),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 

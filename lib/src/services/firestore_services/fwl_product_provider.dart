@@ -2,8 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:food_with_love/models/food_product_model.dart';
 import 'package:food_with_love/models/food_wishlist_model.dart';
 import 'package:food_with_love/models/shopping_cart_model.dart';
-
 import '../constants.dart';
+import 'package:food_with_love/food_with_love.dart';
 
 class FWLProductProvider {
   static final _ref = FirebaseFirestore.instance;
@@ -26,6 +26,17 @@ class FWLProductProvider {
       print('Error!!!: Searching products');
     }
     return _products;
+  }
+
+  // view product
+  static Future<void> viewProduct(final FoodProduct product) async {
+    try {
+      final _productRef = _ref.collection(productsCol).doc(product.id);
+      await _productRef.update({'views': FieldValue.increment(1)});
+    } catch (e) {
+      print(e);
+      print('Error!!!: Viewing product');
+    }
   }
 
   // add to cart
@@ -84,7 +95,7 @@ class FWLProductProvider {
     return _ref
         .collection(productsCol)
         .where('popular', isEqualTo: true)
-        .orderBy('views')
+        .orderBy('views', descending: true)
         .snapshots()
         .map(_productsFromFirestore);
   }

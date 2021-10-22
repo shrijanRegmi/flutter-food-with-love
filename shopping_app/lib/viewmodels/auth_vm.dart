@@ -59,7 +59,7 @@ class AuthVm extends ChangeNotifier {
           _appUser,
           _passwordController.text.trim(),
           onSuccess: (val) {
-            print('Success!');
+            Navigator.pop(context);
           },
           onError: (e) {
             _updateIsLoading(false);

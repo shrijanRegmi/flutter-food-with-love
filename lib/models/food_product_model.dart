@@ -74,7 +74,9 @@ class FoodProduct {
       price: data['price'] ?? 0,
       shippingPrice: data['shipping_price'] ?? 0,
       quantity: data['quantity'] ?? 1,
-      color: data['color'] == null ? Colors.pink : Color(data['color']),
+      color: data['color'] == null
+          ? Colors.pink
+          : Color(int.parse(data['color'], radix: 16)),
       category: FoodCategory.fromJson(data['category']),
       popular: data['popular'] ?? false,
       views: data['views'] ?? 0,
