@@ -5,12 +5,14 @@ import 'package:provider/provider.dart';
 import 'package:shopping_app/wrapper.dart';
 import 'package:shopping_app/wrapper_builder.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     statusBarColor: Colors.pink,
     systemNavigationBarColor: Color(0xff302f35),
     statusBarIconBrightness: Brightness.light,
   ));
+  await FWLInitializer.initializeFirebase();
   runApp(ShoppingApp());
 }
 

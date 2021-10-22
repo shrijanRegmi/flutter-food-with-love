@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "149566541006",
+    "project_id": "food-with-love-2494f",
+    "storage_bucket": "food-with-love-2494f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:149566541006:android:76ebfb3667909a4181d49f",
+        "android_client_info": {
+          "package_name": "com.foodwithlove.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "149566541006-2jcvrgoqbn466he7gru573jpa8c86p4u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgFAPfY44YnRwAxUS-iiue0NobMg8Ne5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "149566541006-2jcvrgoqbn466he7gru573jpa8c86p4u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
