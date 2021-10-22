@@ -53,6 +53,8 @@ final foodProducts = <FoodProduct>[
     quantity: 1,
     category: categories[0],
     color: Color(0xfff0aeaf),
+    popular: false,
+    views: 0,
   ),
   FoodProduct(
     id: "12345",
@@ -66,6 +68,8 @@ final foodProducts = <FoodProduct>[
     quantity: 1,
     category: categories[0],
     color: Color(0xfff6e0b9),
+    popular: false,
+    views: 0,
   ),
   FoodProduct(
     id: "12345",
@@ -80,6 +84,8 @@ final foodProducts = <FoodProduct>[
     quantity: 1,
     category: categories[0],
     color: Color(0xffcedfab),
+    popular: false,
+    views: 0,
   ),
   FoodProduct(
     id: "12345",
@@ -94,6 +100,8 @@ final foodProducts = <FoodProduct>[
     quantity: 1,
     category: categories[0],
     color: Color(0xffecbbbf),
+    popular: false,
+    views: 0,
   ),
   FoodProduct(
     id: "12345",
@@ -106,6 +114,8 @@ final foodProducts = <FoodProduct>[
     category: categories[0],
     description: '',
     color: Color(0xfff0aeaf),
+    popular: false,
+    views: 0,
   ),
   FoodProduct(
     id: "12345",
@@ -118,6 +128,8 @@ final foodProducts = <FoodProduct>[
     category: categories[0],
     description: '',
     color: Color(0xfff6e0b9),
+    popular: false,
+    views: 0,
   ),
   FoodProduct(
     id: "12345",
@@ -131,6 +143,8 @@ final foodProducts = <FoodProduct>[
     category: categories[0],
     description: '',
     color: Color(0xffcedfab),
+    popular: false,
+    views: 0,
   ),
   FoodProduct(
     id: "12345",
@@ -144,6 +158,8 @@ final foodProducts = <FoodProduct>[
     category: categories[0],
     description: '',
     color: Color(0xffecbbbf),
+    popular: false,
+    views: 0,
   ),
   FoodProduct(
     id: "12345",
@@ -156,6 +172,8 @@ final foodProducts = <FoodProduct>[
     category: categories[0],
     description: '',
     color: Color(0xfff0aeaf),
+    popular: false,
+    views: 0,
   ),
   FoodProduct(
     id: "12345",
@@ -168,6 +186,8 @@ final foodProducts = <FoodProduct>[
     category: categories[0],
     description: '',
     color: Color(0xfff6e0b9),
+    popular: false,
+    views: 0,
   ),
   FoodProduct(
     id: "12345",
@@ -181,6 +201,8 @@ final foodProducts = <FoodProduct>[
     category: categories[0],
     description: '',
     color: Color(0xffcedfab),
+    popular: false,
+    views: 0,
   ),
   FoodProduct(
     id: "12345",
@@ -194,24 +216,30 @@ final foodProducts = <FoodProduct>[
     category: categories[0],
     description: '',
     color: Color(0xffecbbbf),
+    popular: false,
+    views: 0,
   ),
 ];
 
 final shoppingCarts = <FoodShoppingCart>[
   FoodShoppingCart(
     id: "12345",
+    uid: "abcde",
     foodProduct: foodProducts[0],
   ),
   FoodShoppingCart(
     id: "12345",
+    uid: "abcde",
     foodProduct: foodProducts[1],
   ),
   FoodShoppingCart(
     id: "12345",
+    uid: "abcde",
     foodProduct: foodProducts[2],
   ),
   FoodShoppingCart(
     id: "12345",
+    uid: "abcde",
     foodProduct: foodProducts[3],
   ),
 ];

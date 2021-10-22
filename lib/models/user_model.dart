@@ -46,6 +46,15 @@ class FoodWithLoveUser {
       'email': email,
       'photo_url': photoUrl,
       'extra_data': extraData,
+      'search_keys': _getSearchKeys(),
     };
+  }
+
+  List<String> _getSearchKeys() {
+    final _arr = <String>[];
+    for (int i = 0; i < name.length; i++) {
+      _arr.add(name.substring(0, i + 1).toUpperCase());
+    }
+    return _arr;
   }
 }
