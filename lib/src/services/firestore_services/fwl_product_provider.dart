@@ -83,6 +83,22 @@ class FWLProductProvider {
     }
   }
 
+  // upload test products
+  static Future<void> uploadTestProducts(
+    final List<FoodProduct> products,
+  ) async {
+    try {
+      for (final product in products) {
+        final _productRef = _ref.collection(productsCol).doc();
+        final _product = product.copyWith(id: _productRef.id);
+        await _productRef.set(_product.toJson());
+      }
+    } catch (e) {
+      print(e);
+      print('Error!!!: Uploading test products');
+    }
+  }
+
   //get list of products from firestore
   List<FoodProduct> _productsFromFirestore(
     final QuerySnapshot<Map<String, dynamic>> snap,
