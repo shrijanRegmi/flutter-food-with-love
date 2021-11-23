@@ -5,19 +5,17 @@ import 'package:shopping_app/viewmodels/explore_vm.dart';
 import 'package:shopping_app/viewmodels/vm_provider.dart';
 import 'package:shopping_app/views/screen/home/view_product_screen.dart';
 
-// ignore: must_be_immutable
 class ExploreTab extends StatelessWidget {
   ExploreTab({Key? key}) : super(key: key);
 
-  var _popularProducts = <FoodProduct>[];
   @override
   Widget build(BuildContext context) {
     return VMProvider<ExploreVm>(
       vm: ExploreVm(context),
-      builder: (context, vm, appUser) {
+      builder: (context, vm, appVm, appUser) {
         // don't receive popular products list realtime so that when the
         // product views gets updated then the list doesn't update
-        if (_popularProducts.isEmpty) _popularProducts = vm.popularProducts;
+        appVm.updatePopularProducts(vm.popularProducts);
 
         return SingleChildScrollView(
           physics: BouncingScrollPhysics(),
@@ -60,7 +58,7 @@ class ExploreTab extends StatelessWidget {
                 height: 10.0,
               ),
               FoodWithLoveProductsList(
-                products: _popularProducts,
+                products: appVm.popularProducts,
                 onPressProduct: (product) => Navigator.push(
                   context,
                   MaterialPageRoute(

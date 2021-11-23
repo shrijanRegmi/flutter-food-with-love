@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:food_with_love/food_with_love.dart';
 import 'package:provider/provider.dart';
+import 'package:shopping_app/viewmodels/app_vm.dart';
 import 'package:shopping_app/wrapper.dart';
 import 'package:shopping_app/wrapper_builder.dart';
 
@@ -21,9 +22,16 @@ class ShoppingApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamProvider<FoodWithLoveUser?>.value(
-      value: FWLAuthProvider().userAuthState,
-      initialData: null,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<AppVm>.value(
+          value: AppVm(),
+        ),
+        StreamProvider<FoodWithLoveUser?>.value(
+          value: FWLAuthProvider().userAuthState,
+          initialData: null,
+        ),
+      ],
       child: WrapperBuilder(
         builder: (context) {
           return MaterialApp(

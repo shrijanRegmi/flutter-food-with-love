@@ -17,7 +17,7 @@ class ViewProductScreen extends StatelessWidget {
     return VMProvider<ViewProductVm>(
       vm: ViewProductVm(context, product),
       onInit: (vm) => vm.onInit(),
-      builder: (context, vm, appUser) {
+      builder: (context, vm, appVm, appUser) {
         return Scaffold(
           backgroundColor: product.color,
           body: SafeArea(

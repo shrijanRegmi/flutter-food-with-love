@@ -12,7 +12,7 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return VMProvider<AuthVm>(
       vm: AuthVm(context),
-      builder: (context, vm, appUser) {
+      builder: (context, vm, appVm, appUser) {
         return Scaffold(
           body: SafeArea(
             child: GestureDetector(
