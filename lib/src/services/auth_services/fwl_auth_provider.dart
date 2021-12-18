@@ -50,6 +50,16 @@ class FWLAuthProvider {
     }
   }
 
+  // sign out user
+  static Future<void> signOut() async {
+    try {
+      await _auth.signOut();
+    } catch (e) {
+      print(e);
+      print('Error!!!: Logging out user');
+    }
+  }
+
   // appuser from firebase
   FoodWithLoveUser? _appUserFromFirebase(final User? user) {
     return user == null

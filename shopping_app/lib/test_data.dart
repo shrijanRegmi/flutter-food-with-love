@@ -288,6 +288,8 @@ final options = <FoodWithLoveOption>[
       Icons.keyboard_arrow_right,
     ),
     title: 'Log out',
-    onPressed: () {},
+    onPressed: () async {
+      await FWLAuthProvider.signOut();
+    },
   ),
 ];
