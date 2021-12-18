@@ -5,7 +5,7 @@ import 'package:food_with_love/src/shared/app_colors.dart';
 class FoodWithLoveButton extends StatelessWidget {
   final String? value;
   final Color color;
-  final Color textColor;
+  final TextStyle? textStyle;
   final Color borderColor;
   final Widget? icon;
   final double borderRadius;
@@ -17,7 +17,7 @@ class FoodWithLoveButton extends StatelessWidget {
     this.value,
     this.icon,
     this.color = kcPrimaryColor,
-    this.textColor = Colors.white,
+    this.textStyle,
     this.borderRadius = 2.0,
     this.onPressed,
     this.padding,
@@ -27,7 +27,7 @@ class FoodWithLoveButton extends StatelessWidget {
   const FoodWithLoveButton.bordered({
     this.value,
     this.icon,
-    this.textColor = kcPrimaryColor,
+    this.textStyle,
     this.borderColor = kcPrimaryColor,
     this.borderRadius = 2.0,
     this.onPressed,
@@ -40,7 +40,6 @@ class FoodWithLoveButton extends StatelessWidget {
     if (buttonStyle == button_style.ButtonStyle.filled)
       return MaterialButton(
         color: color,
-        textColor: textColor,
         padding: padding ?? const EdgeInsets.all(20.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius),
@@ -53,14 +52,17 @@ class FoodWithLoveButton extends StatelessWidget {
               SizedBox(
                 width: 10.0,
               ),
-            if (value != null) Text('$value'),
+            if (value != null)
+              Text(
+                '$value',
+                style: textStyle,
+              ),
           ],
         ),
         onPressed: onPressed,
       );
     else
       return MaterialButton(
-        textColor: textColor,
         padding: padding ?? const EdgeInsets.all(20.0),
         splashColor: borderColor.withOpacity(0.1),
         highlightColor: Colors.transparent,
@@ -81,6 +83,7 @@ class FoodWithLoveButton extends StatelessWidget {
             if (value != null)
               Text(
                 '$value',
+                style: textStyle,
               ),
           ],
         ),
