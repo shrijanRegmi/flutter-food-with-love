@@ -1,12 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:food_with_love/models/food_product_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:food_with_love/models/food_last_search_model.dart';
 import 'package:food_with_love/models/food_wishlist_model.dart';
-import 'package:food_with_love/models/shopping_cart_model.dart';
 import '../constants.dart';
 import 'package:food_with_love/food_with_love.dart';
 
 class FWLProductProvider {
   static final _ref = FirebaseFirestore.instance;
+  static final _auth = FirebaseAuth.instance;
+  static final _uid = _auth.currentUser?.uid;
 
   // search product
   static Future<List<FoodProduct>> search(final String searchKey) async {
@@ -61,6 +63,28 @@ class FWLProductProvider {
     }
   }
 
+  // remove from cart
+  static Future<void> removeFromCart(
+    final FoodShoppingCart cart, {
+    final Function(dynamic)? onSuccess,
+    final Function(dynamic)? onError,
+  }) async {
+    try {
+      final _shoppingCartRef = _ref
+          .collection(usersCol)
+          .doc(cart.uid)
+          .collection(wishListsCol)
+          .doc(cart.id);
+
+      await _shoppingCartRef.delete();
+      onSuccess?.call(cart);
+    } catch (e) {
+      print(e);
+      print('Error!!!: Removing from shopping cart');
+      onError?.call(e);
+    }
+  }
+
   // add to wishlist
   static Future<void> addToWishlist(
     final FoodWishlist wishlist, {
@@ -78,7 +102,51 @@ class FWLProductProvider {
       onSuccess?.call(_wishlist);
     } catch (e) {
       print(e);
-      print('Error!!!: Adding to shopping cart');
+      print('Error!!!: Adding to wishlist');
+      onError?.call(e);
+    }
+  }
+
+  // remove from wishlist
+  static Future<void> removeFromWishlist(
+    final FoodWishlist wishlist, {
+    final Function(dynamic)? onSuccess,
+    final Function(dynamic)? onError,
+  }) async {
+    try {
+      final _wishlistRef = _ref
+          .collection(usersCol)
+          .doc(wishlist.uid)
+          .collection(wishListsCol)
+          .doc(wishlist.id);
+
+      await _wishlistRef.delete();
+      onSuccess?.call(wishlist);
+    } catch (e) {
+      print(e);
+      print('Error!!!: Removing from wishlist');
+      onError?.call(e);
+    }
+  }
+
+  // add product to last search
+  static Future<void> addToLastSearch(
+    final FoodLastSearch foodLastSearch, {
+    final Function(dynamic)? onSuccess,
+    final Function(dynamic)? onError,
+  }) async {
+    try {
+      final _lastSearchRef = _ref
+          .collection(usersCol)
+          .doc(foodLastSearch.uid)
+          .collection(lastSearchesCol)
+          .doc();
+      final _foodLastSearch = foodLastSearch.copyWith(id: _lastSearchRef.id);
+      await _lastSearchRef.set(_foodLastSearch.toJson());
+      onSuccess?.call(_foodLastSearch);
+    } catch (e) {
+      print(e);
+      print('Error!!!: Adding product to last search');
       onError?.call(e);
     }
   }
@@ -106,6 +174,27 @@ class FWLProductProvider {
     return snap.docs.map((e) => FoodProduct.fromJson(e.data())).toList();
   }
 
+  //get list of wishlists from firestore
+  List<FoodWishlist> _wishlistsFromFirestore(
+    final QuerySnapshot<Map<String, dynamic>> snap,
+  ) {
+    return snap.docs.map((e) => FoodWishlist.fromJson(e.data())).toList();
+  }
+
+  //get list of shopping carts from firestore
+  List<FoodShoppingCart> _shoppingCartsFromFirestore(
+    final QuerySnapshot<Map<String, dynamic>> snap,
+  ) {
+    return snap.docs.map((e) => FoodShoppingCart.fromJson(e.data())).toList();
+  }
+
+  //get list of last searches from firestore
+  List<FoodLastSearch> _lastSearchesFromFirestore(
+    final QuerySnapshot<Map<String, dynamic>> snap,
+  ) {
+    return snap.docs.map((e) => FoodLastSearch.fromJson(e.data())).toList();
+  }
+
   // stream of list of products
   Stream<List<FoodProduct>> get popularProductsList {
     return _ref
@@ -114,5 +203,38 @@ class FWLProductProvider {
         .orderBy('views', descending: true)
         .snapshots()
         .map(_productsFromFirestore);
+  }
+
+  // stream of list of wishlists
+  Stream<List<FoodWishlist>> get wishlistsList {
+    return _ref
+        .collection(usersCol)
+        .doc(_uid)
+        .collection(wishListsCol)
+        .orderBy('created_at', descending: true)
+        .snapshots()
+        .map(_wishlistsFromFirestore);
+  }
+
+  // stream of list of shopping carts
+  Stream<List<FoodShoppingCart>> get shoppingCartsList {
+    return _ref
+        .collection(usersCol)
+        .doc(_uid)
+        .collection(shoppingCartsCol)
+        .orderBy('created_at', descending: true)
+        .snapshots()
+        .map(_shoppingCartsFromFirestore);
+  }
+
+  // stream of list of last searches
+  Stream<List<FoodLastSearch>> get lastSearchesList {
+    return _ref
+        .collection(usersCol)
+        .doc(_uid)
+        .collection(lastSearchesCol)
+        .orderBy('created_at', descending: true)
+        .snapshots()
+        .map(_lastSearchesFromFirestore);
   }
 }

@@ -4,12 +4,14 @@ class FoodShoppingCart {
   final String id;
   final FoodProduct foodProduct;
   final String uid;
+  final int createdAt;
   final Map<String, dynamic>? extraData;
 
   FoodShoppingCart({
     required this.id,
     required this.uid,
     required this.foodProduct,
+    required this.createdAt,
     this.extraData,
   });
 
@@ -17,13 +19,14 @@ class FoodShoppingCart {
     final String? id,
     final String? uid,
     final FoodProduct? foodProduct,
-    final int? totalPrice,
+    final int? createdAt,
     final Map<String, dynamic>? extraData,
   }) {
     return FoodShoppingCart(
       id: id ?? this.id,
       uid: uid ?? this.uid,
       foodProduct: foodProduct ?? this.foodProduct,
+      createdAt: createdAt ?? this.createdAt,
       extraData: extraData ?? this.extraData,
     );
   }
@@ -33,6 +36,7 @@ class FoodShoppingCart {
       id: data['id'],
       uid: data['uid'],
       foodProduct: FoodProduct.fromJson(data['food_product']),
+      createdAt: data['created_at'],
       extraData: data['extra_data'],
     );
   }
@@ -42,6 +46,7 @@ class FoodShoppingCart {
       'id': id,
       'uid': uid,
       'food_product': foodProduct.toJson(),
+      'created_at': createdAt,
       'extra_data': extraData ?? {},
     };
   }

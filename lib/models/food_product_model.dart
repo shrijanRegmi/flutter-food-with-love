@@ -14,6 +14,7 @@ class FoodProduct {
   final FoodCategory category;
   final bool popular;
   final int views;
+  final int createdAt;
   final Map<String, dynamic>? extraData;
 
   FoodProduct({
@@ -29,6 +30,7 @@ class FoodProduct {
     required this.category,
     required this.popular,
     required this.views,
+    required this.createdAt,
     this.extraData,
   });
 
@@ -45,6 +47,7 @@ class FoodProduct {
     final FoodCategory? category,
     final bool? popular,
     final int? views,
+    final int? createdAt,
     final Map<String, dynamic>? extraData,
   }) {
     return FoodProduct(
@@ -60,6 +63,7 @@ class FoodProduct {
       category: category ?? this.category,
       popular: popular ?? this.popular,
       views: views ?? this.views,
+      createdAt: createdAt ?? this.createdAt,
       extraData: extraData ?? this.extraData,
     );
   }
@@ -80,6 +84,7 @@ class FoodProduct {
       category: FoodCategory.fromJson(data['category']),
       popular: data['popular'] ?? false,
       views: data['views'] ?? 0,
+      createdAt: data['created_at'],
       extraData: data['extra_data'] ?? {},
     );
   }
@@ -98,6 +103,7 @@ class FoodProduct {
       'category': category.toJson(),
       'popular': popular,
       'views': views,
+      'created_at': createdAt,
       'extra_data': extraData ?? {},
       'search_keys': _getSearchKeys(),
     };

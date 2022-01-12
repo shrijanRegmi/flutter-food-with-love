@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_with_love/food_with_love.dart';
-import 'package:shopping_app/test_data.dart';
 import 'package:shopping_app/viewmodels/view_product_vm.dart';
 import 'package:shopping_app/viewmodels/vm_provider.dart';
 
@@ -105,7 +104,7 @@ class ViewProductScreen extends StatelessWidget {
             height: 10.0,
           ),
           FoodWithLoveSimilarProductsList(
-            products: foodProducts.sublist(0, 10),
+            products: [],
             onPressProduct: (product) => Navigator.push(
               context,
               MaterialPageRoute(

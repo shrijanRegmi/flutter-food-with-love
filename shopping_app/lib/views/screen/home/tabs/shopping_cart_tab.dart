@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:food_with_love/food_with_love.dart';
-import 'package:shopping_app/test_data.dart';
 
 class ShoppingCartTab extends StatelessWidget {
   const ShoppingCartTab({Key? key}) : super(key: key);
@@ -20,7 +19,7 @@ class ShoppingCartTab extends StatelessWidget {
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             child: FoodWithLoveShoppingCartList(
-              shoppingCarts: shoppingCarts,
+              shoppingCarts: [],
               onQuantityUpdate: (shoppingCart, quantity) {
                 print('${shoppingCart.foodProduct.title}');
                 print('$quantity');
@@ -28,7 +27,7 @@ class ShoppingCartTab extends StatelessWidget {
             ),
           ),
         ),
-        FoodWithLoveCheckoutBlock(shoppingCarts),
+        FoodWithLoveCheckoutBlock([]),
       ],
     );
   }

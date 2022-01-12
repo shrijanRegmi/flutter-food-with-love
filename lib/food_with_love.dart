@@ -37,5 +37,6 @@ export 'src/shared/app_colors.dart';
 
 // services
 export 'src/services/auth_services/fwl_auth_provider.dart';
+export 'src/services/firestore_services/fwl_user_provider.dart';
 export 'src/services/firestore_services/fwl_product_provider.dart';
 export 'src/services/fwl_initializer.dart';

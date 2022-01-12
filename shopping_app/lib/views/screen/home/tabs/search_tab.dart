@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:food_with_love/food_with_love.dart';
 import 'package:shopping_app/views/screen/home/view_product_screen.dart';
 
-import '../../../../test_data.dart';
-
 class SearchTab extends StatelessWidget {
   const SearchTab({Key? key}) : super(key: key);
 
@@ -36,9 +34,9 @@ class SearchTab extends StatelessWidget {
                   height: 10.0,
                 ),
                 FoodWithLoveProductsList(
-                  products: foodProducts,
+                  products: [],
                   itemBuilder: (context, index) {
-                    final _product = foodProducts[index];
+                    final _product = [][index];
                     return FoodWithLoveProductItem.outlined(product: _product);
                   },
                   onPressProduct: (product) => Navigator.push(
