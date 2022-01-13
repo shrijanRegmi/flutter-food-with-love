@@ -89,6 +89,10 @@ class _FoodWithLoveProductItemState extends State<FoodWithLoveProductItem> {
               borderRadius: 50.0,
               icon: Icon(
                 Icons.shopping_bag,
+                color: Colors.white,
+              ),
+              textStyle: TextStyle(
+                color: Colors.white,
               ),
               color: Colors.brown,
               padding:
@@ -113,29 +117,31 @@ class _FoodWithLoveProductItemState extends State<FoodWithLoveProductItem> {
       ),
       child: _isAdding
           ? _addBuilder()
-          : Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          : Stack(
               children: [
-                _addBtnBuilder(),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 20.0, right: 20.0, bottom: 20.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _imgBuilder(),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        _titleAndSubTitleBuilder(),
-                        _priceBuilder(),
-                      ],
-                    ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 20.0, right: 20.0, bottom: 20.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      _imgBuilder(),
+                      SizedBox(
+                        height: 15.0,
+                      ),
+                      _titleAndSubTitleBuilder(),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      _priceBuilder(),
+                    ],
                   ),
                 ),
+                _addBtnBuilder(),
               ],
             ),
     );
@@ -175,7 +181,7 @@ class _FoodWithLoveProductItemState extends State<FoodWithLoveProductItem> {
         GestureDetector(
           onTap: () => setState(() => _isAdding = true),
           child: Container(
-            padding: const EdgeInsets.all(10.0),
+            padding: const EdgeInsets.all(15.0),
             decoration: BoxDecoration(
               color: Colors.white54,
               borderRadius: BorderRadius.only(
@@ -198,14 +204,10 @@ class _FoodWithLoveProductItemState extends State<FoodWithLoveProductItem> {
       child: Column(
         children: [
           CachedNetworkImage(
-            width: 80.0,
-            height: 80.0,
+            width: 110.0,
+            height: 110.0,
             imageUrl: '${widget.product.imgUrl}',
           ),
-          SizedBox(
-            height: 15.0,
-          ),
-          _shadowBuilder(),
         ],
       ),
     );
@@ -216,35 +218,20 @@ class _FoodWithLoveProductItemState extends State<FoodWithLoveProductItem> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          padding: const EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(10.0),
           decoration: BoxDecoration(
             color: widget.product.color,
             borderRadius: BorderRadius.circular(20.0),
           ),
           child: Center(
             child: CachedNetworkImage(
-              width: 75.0,
-              height: 75.0,
+              width: 100.0,
+              height: 100.0,
               imageUrl: '${widget.product.imgUrl}',
             ),
           ),
         ),
       ],
-    );
-  }
-
-  Widget _shadowBuilder() {
-    return Container(
-      width: 50.0,
-      height: 3.0,
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black,
-            blurRadius: 18.0,
-          ),
-        ],
-      ),
     );
   }
 

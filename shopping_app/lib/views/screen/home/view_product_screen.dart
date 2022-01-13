@@ -128,10 +128,10 @@ class ViewProductScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          FoodWithLoveText.heading3(
+          FoodWithLoveText.heading1(
             '${product.title}',
           ),
-          FoodWithLoveText.heading4(
+          FoodWithLoveText.heading5(
             'Rs ${product.price} per kg',
             style: TextStyle(
               color: Colors.green,
@@ -142,6 +142,7 @@ class ViewProductScreen extends StatelessWidget {
           ),
           FoodWithLoveText.body(
             '${product.description}',
+            expandTextLength: 400,
             style: TextStyle(
               color: Colors.black,
             ),
