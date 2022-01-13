@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:food_with_love/enums/online_status.dart';
 import 'package:food_with_love/models/food_with_love_user_model.dart';
 import 'package:food_with_love/src/services/firestore_services/fwl_user_provider.dart';
 
@@ -27,7 +26,7 @@ class FWLAuthProvider {
     }
   }
 
-  // create account with email and password
+  // create account with user and password
   static Future createAccountWithAppUserAndPassword(
     final FoodWithLoveUser appUser,
     final String password, {
@@ -63,15 +62,7 @@ class FWLAuthProvider {
 
   // appuser from firebase
   FoodWithLoveUser? _appUserFromFirebase(final User? user) {
-    return user == null
-        ? null
-        : FoodWithLoveUser(
-            uid: user.uid,
-            name: '',
-            email: '',
-            photoUrl: '',
-            onlineStatus: OnlineStatus.online,
-          );
+    return user == null ? null : FoodWithLoveUser(uid: user.uid);
   }
 
   // stream of auth changes
