@@ -1,12 +1,12 @@
 import 'package:food_with_love/food_with_love.dart';
 
 class FoodNotification {
-  final String id;
-  final String title;
-  final String body;
-  final String uid;
-  final bool read;
-  final FoodProduct foodProduct;
+  final String? id;
+  final String? title;
+  final String? body;
+  final String? uid;
+  final bool? read;
+  final FoodProduct? foodProduct;
 
   FoodNotification({
     required this.id,

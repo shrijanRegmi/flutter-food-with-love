@@ -75,7 +75,7 @@ class _FoodWithLoveShoppingCartItemState
     return Container(
       padding: const EdgeInsets.all(15.0),
       decoration: BoxDecoration(
-        color: widget.shoppingCart.foodProduct.color,
+        color: widget.shoppingCart.foodProduct?.color,
         borderRadius: BorderRadius.circular(20.0),
       ),
       child: Center(
@@ -84,7 +84,7 @@ class _FoodWithLoveShoppingCartItemState
             CachedNetworkImage(
               width: 75.0,
               height: 75.0,
-              imageUrl: '${widget.shoppingCart.foodProduct.imgUrl}',
+              imageUrl: '${widget.shoppingCart.foodProduct?.imgUrl}',
             ),
             SizedBox(
               height: 15.0,
@@ -116,14 +116,14 @@ class _FoodWithLoveShoppingCartItemState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '${widget.shoppingCart.foodProduct.title}'.toUpperCase(),
+          '${widget.shoppingCart.foodProduct?.title}'.toUpperCase(),
           style: TextStyle(
             fontSize: 16.0,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          'ID: ${widget.shoppingCart.foodProduct.id}'.toUpperCase(),
+          'ID: ${widget.shoppingCart.foodProduct?.id}'.toUpperCase(),
           style: TextStyle(
             fontSize: 12.0,
             color: Colors.grey,
@@ -138,7 +138,7 @@ class _FoodWithLoveShoppingCartItemState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Rs ${widget.shoppingCart.foodProduct.price * _count}',
+          'Rs ${(widget.shoppingCart.foodProduct?.price ?? 0) * _count}',
           style: TextStyle(
             fontSize: 18.0,
             fontWeight: FontWeight.bold,

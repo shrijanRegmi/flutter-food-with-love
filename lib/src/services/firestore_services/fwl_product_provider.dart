@@ -168,35 +168,35 @@ class FWLProductProvider {
   }
 
   //get list of products from firestore
-  List<FoodProduct> _productsFromFirestore(
+  static List<FoodProduct> _productsFromFirestore(
     final QuerySnapshot<Map<String, dynamic>> snap,
   ) {
     return snap.docs.map((e) => FoodProduct.fromJson(e.data())).toList();
   }
 
   //get list of wishlists from firestore
-  List<FoodWishlist> _wishlistsFromFirestore(
+  static List<FoodWishlist> _wishlistsFromFirestore(
     final QuerySnapshot<Map<String, dynamic>> snap,
   ) {
     return snap.docs.map((e) => FoodWishlist.fromJson(e.data())).toList();
   }
 
   //get list of shopping carts from firestore
-  List<FoodShoppingCart> _shoppingCartsFromFirestore(
+  static List<FoodShoppingCart> _shoppingCartsFromFirestore(
     final QuerySnapshot<Map<String, dynamic>> snap,
   ) {
     return snap.docs.map((e) => FoodShoppingCart.fromJson(e.data())).toList();
   }
 
   //get list of last searches from firestore
-  List<FoodLastSearch> _lastSearchesFromFirestore(
+  static List<FoodLastSearch> _lastSearchesFromFirestore(
     final QuerySnapshot<Map<String, dynamic>> snap,
   ) {
     return snap.docs.map((e) => FoodLastSearch.fromJson(e.data())).toList();
   }
 
   // stream of list of products
-  Stream<List<FoodProduct>> get popularProductsList {
+  static Stream<List<FoodProduct>> get popularProductsList {
     return _ref
         .collection(productsCol)
         .where('popular', isEqualTo: true)
@@ -206,7 +206,7 @@ class FWLProductProvider {
   }
 
   // stream of list of wishlists
-  Stream<List<FoodWishlist>> get wishlistsList {
+  static Stream<List<FoodWishlist>> get wishlistsList {
     return _ref
         .collection(usersCol)
         .doc(_uid)
@@ -217,7 +217,7 @@ class FWLProductProvider {
   }
 
   // stream of list of shopping carts
-  Stream<List<FoodShoppingCart>> get shoppingCartsList {
+  static Stream<List<FoodShoppingCart>> get shoppingCartsList {
     return _ref
         .collection(usersCol)
         .doc(_uid)
@@ -228,7 +228,7 @@ class FWLProductProvider {
   }
 
   // stream of list of last searches
-  Stream<List<FoodLastSearch>> get lastSearchesList {
+  static Stream<List<FoodLastSearch>> get lastSearchesList {
     return _ref
         .collection(usersCol)
         .doc(_uid)

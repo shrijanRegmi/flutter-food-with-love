@@ -17,8 +17,24 @@ class WrapperBuilder extends StatelessWidget {
       return MultiProvider(
         providers: [
           StreamProvider<List<FoodProduct>>.value(
-            value: FWLProductProvider().popularProductsList,
+            value: FWLProductProvider.popularProductsList,
             initialData: <FoodProduct>[],
+          ),
+          StreamProvider<List<FoodWishlist>>.value(
+            value: FWLProductProvider.wishlistsList,
+            initialData: <FoodWishlist>[],
+          ),
+          StreamProvider<List<FoodShoppingCart>>.value(
+            value: FWLProductProvider.shoppingCartsList,
+            initialData: <FoodShoppingCart>[],
+          ),
+          StreamProvider<List<FoodLastSearch>>.value(
+            value: FWLProductProvider.lastSearchesList,
+            initialData: <FoodLastSearch>[],
+          ),
+          StreamProvider<List<FoodNotification>>.value(
+            value: FWLNotificationProvider.notificationsList,
+            initialData: <FoodNotification>[],
           ),
         ],
         child: builder(context),

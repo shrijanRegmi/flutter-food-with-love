@@ -1,15 +1,19 @@
+import 'package:food_with_love/enums/online_status.dart';
+
 class FoodWithLoveUser {
-  final String uid;
-  final String name;
-  final String email;
-  final String photoUrl;
+  final String? uid;
+  final String? name;
+  final String? email;
+  final String? photoUrl;
+  final OnlineStatus? onlineStatus;
   final Map<String, dynamic>? extraData;
 
   FoodWithLoveUser({
-    required this.uid,
-    required this.name,
-    required this.email,
-    required this.photoUrl,
+    this.uid,
+    this.name,
+    this.email,
+    this.photoUrl,
+    this.onlineStatus,
     this.extraData,
   });
 
@@ -18,6 +22,7 @@ class FoodWithLoveUser {
     final String? name,
     final String? email,
     final String? photoUrl,
+    final OnlineStatus? onlineStatus,
     final Map<String, dynamic>? extraData,
   }) {
     return FoodWithLoveUser(
@@ -25,6 +30,7 @@ class FoodWithLoveUser {
       name: name ?? this.name,
       email: email ?? this.email,
       photoUrl: photoUrl ?? this.photoUrl,
+      onlineStatus: onlineStatus ?? this.onlineStatus,
       extraData: extraData ?? this.extraData,
     );
   }
@@ -35,6 +41,7 @@ class FoodWithLoveUser {
       name: data['name'],
       email: data['email'],
       photoUrl: data['photo_url'],
+      onlineStatus: OnlineStatus.values[data['online_status'] ?? 0],
       extraData: data['extra_data'],
     );
   }
@@ -52,8 +59,9 @@ class FoodWithLoveUser {
 
   List<String> _getSearchKeys() {
     final _arr = <String>[];
-    for (int i = 0; i < name.length; i++) {
-      _arr.add(name.substring(0, i + 1).toUpperCase());
+    for (int i = 0; i < (name?.length ?? 0); i++) {
+      final _name = name?.substring(0, i + 1).toUpperCase();
+      if (_name != null) _arr.add(_name);
     }
     return _arr;
   }

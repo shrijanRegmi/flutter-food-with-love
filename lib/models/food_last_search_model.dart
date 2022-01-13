@@ -1,16 +1,16 @@
 import 'package:food_with_love/food_with_love.dart';
 
 class FoodLastSearch {
-  final String id;
-  final String uid;
-  final FoodProduct foodProduct;
-  final int createdAt;
+  final String? id;
+  final String? uid;
+  final FoodProduct? foodProduct;
+  final int? createdAt;
 
   FoodLastSearch({
-    required this.id,
-    required this.uid,
-    required this.foodProduct,
-    required this.createdAt,
+    this.id,
+    this.uid,
+    this.foodProduct,
+    this.createdAt,
   });
 
   FoodLastSearch copyWith({
@@ -40,7 +40,7 @@ class FoodLastSearch {
     return {
       'id': id,
       'uid': uid,
-      'food_product': foodProduct.toJson(),
+      'food_product': foodProduct?.toJson(),
       'created_at': createdAt,
     };
   }

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:food_with_love/models/user_model.dart';
+import 'package:food_with_love/enums/online_status.dart';
+import 'package:food_with_love/models/food_with_love_user_model.dart';
 import 'package:food_with_love/src/services/firestore_services/fwl_user_provider.dart';
 
 class FWLAuthProvider {
@@ -35,7 +36,7 @@ class FWLAuthProvider {
   }) async {
     try {
       final _result = await _auth.createUserWithEmailAndPassword(
-        email: appUser.email,
+        email: appUser.email!,
         password: password,
       );
       final _appUser = appUser.copyWith(uid: _result.user?.uid);
@@ -69,6 +70,7 @@ class FWLAuthProvider {
             name: '',
             email: '',
             photoUrl: '',
+            onlineStatus: OnlineStatus.online,
           );
   }
 

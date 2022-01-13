@@ -27,9 +27,11 @@ export 'src/widgets/food_with_love_checkout_block.dart';
 // models
 export 'models/food_category_model.dart';
 export 'models/food_product_model.dart';
-export 'models/food_category_model.dart';
-export 'models/user_model.dart';
-export 'models/shopping_cart_model.dart';
+export 'models/food_wishlist_model.dart';
+export 'models/food_last_search_model.dart';
+export 'models/food_notification_model.dart';
+export 'models/food_with_love_user_model.dart';
+export 'models/food_shopping_cart_model.dart';
 export 'models/option_model.dart';
 
 // colors
@@ -38,5 +40,6 @@ export 'src/shared/app_colors.dart';
 // services
 export 'src/services/auth_services/fwl_auth_provider.dart';
 export 'src/services/firestore_services/fwl_user_provider.dart';
+export 'src/services/firestore_services/fwl_notification_provider.dart';
 export 'src/services/firestore_services/fwl_product_provider.dart';
 export 'src/services/fwl_initializer.dart';

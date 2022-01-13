@@ -1,12 +1,12 @@
 class FoodCategory {
-  final String id;
-  final String imgUrl;
-  final String title;
+  final String? id;
+  final String? imgUrl;
+  final String? title;
   final Map<String, dynamic>? extraData;
   FoodCategory({
-    required this.id,
-    required this.imgUrl,
-    required this.title,
+    this.id,
+    this.imgUrl,
+    this.title,
     this.extraData,
   });
 

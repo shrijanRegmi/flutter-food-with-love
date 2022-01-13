@@ -78,7 +78,7 @@ class FoodWithLoveCheckoutBlock extends StatelessWidget {
   int _getShippingPrice() {
     int _shipping = 0;
     shoppingCarts.forEach((cart) {
-      _shipping += cart.foodProduct.shippingPrice;
+      _shipping += (cart.foodProduct?.shippingPrice ?? 0);
     });
     return _shipping;
   }
@@ -86,7 +86,8 @@ class FoodWithLoveCheckoutBlock extends StatelessWidget {
   int _getTotalPrice() {
     int _total = 0;
     shoppingCarts.forEach((cart) {
-      _total += (cart.foodProduct.price * cart.foodProduct.quantity);
+      _total +=
+          ((cart.foodProduct?.price ?? 0) * (cart.foodProduct?.quantity ?? 1));
     });
     return _total;
   }

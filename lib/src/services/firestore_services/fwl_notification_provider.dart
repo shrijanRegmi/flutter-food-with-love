@@ -32,14 +32,14 @@ class FWLNotificationProvider {
   }
 
   // get list of notifications from firestore
-  List<FoodNotification> _notificationsFromFirestore(
+  static List<FoodNotification> _notificationsFromFirestore(
     QuerySnapshot<Map<String, dynamic>> snap,
   ) {
     return snap.docs.map((e) => FoodNotification.fromJson(e.data())).toList();
   }
 
   // stream of list of notifications
-  Stream<List<FoodNotification>> get notificationsList {
+  static Stream<List<FoodNotification>> get notificationsList {
     return _ref
         .collection(usersCol)
         .doc(_uid)

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_with_love/enums/online_status.dart';
 import 'package:food_with_love/food_with_love.dart';
 
 class AuthVm extends ChangeNotifier {
@@ -54,6 +55,7 @@ class AuthVm extends ChangeNotifier {
           name: _nameController.text.trim(),
           email: _emailController.text.trim(),
           photoUrl: '',
+          onlineStatus: OnlineStatus.online,
         );
         FWLAuthProvider.createAccountWithAppUserAndPassword(
           _appUser,

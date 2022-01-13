@@ -2,35 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:food_with_love/food_with_love.dart';
 
 class FoodProduct {
-  final String id;
-  final String imgUrl;
-  final String title;
-  final String subTitle;
-  final String description;
-  final int price;
-  final int shippingPrice;
-  final int quantity;
-  final Color color;
-  final FoodCategory category;
-  final bool popular;
-  final int views;
-  final int createdAt;
+  final String? id;
+  final String? imgUrl;
+  final String? title;
+  final String? subTitle;
+  final String? description;
+  final int? price;
+  final int? shippingPrice;
+  final int? quantity;
+  final Color? color;
+  final FoodCategory? category;
+  final bool? popular;
+  final int? views;
+  final int? createdAt;
   final Map<String, dynamic>? extraData;
 
   FoodProduct({
-    required this.id,
-    required this.imgUrl,
-    required this.title,
-    required this.subTitle,
-    required this.description,
-    required this.price,
-    required this.shippingPrice,
-    required this.quantity,
-    required this.color,
-    required this.category,
-    required this.popular,
-    required this.views,
-    required this.createdAt,
+    this.id,
+    this.imgUrl,
+    this.title,
+    this.subTitle,
+    this.description,
+    this.price,
+    this.shippingPrice,
+    this.quantity,
+    this.color,
+    this.category,
+    this.popular,
+    this.views,
+    this.createdAt,
     this.extraData,
   });
 
@@ -99,8 +99,8 @@ class FoodProduct {
       'price': price,
       'shipping_price': shippingPrice,
       'quantity': quantity,
-      'color': color.value.toRadixString(16),
-      'category': category.toJson(),
+      'color': color?.value.toRadixString(16),
+      'category': category?.toJson(),
       'popular': popular,
       'views': views,
       'created_at': createdAt,
@@ -111,8 +111,9 @@ class FoodProduct {
 
   List<String> _getSearchKeys() {
     final _arr = <String>[];
-    for (int i = 0; i < title.length; i++) {
-      _arr.add(title.substring(0, i + 1).toUpperCase());
+    for (int i = 0; i < (title?.length ?? 0); i++) {
+      final _title = title?.substring(0, i + 1).toUpperCase();
+      if (_title != null) _arr.add(_title);
     }
     return _arr;
   }

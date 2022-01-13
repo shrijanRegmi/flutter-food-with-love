@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_with_love/enums/online_status.dart';
-import 'package:food_with_love/models/user_model.dart';
+import 'package:food_with_love/models/food_with_love_user_model.dart';
 import 'package:food_with_love/src/services/constants.dart';
 
 class FWLUserProvider {

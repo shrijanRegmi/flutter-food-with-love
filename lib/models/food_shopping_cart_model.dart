@@ -1,17 +1,17 @@
 import 'package:food_with_love/food_with_love.dart';
 
 class FoodShoppingCart {
-  final String id;
-  final FoodProduct foodProduct;
-  final String uid;
-  final int createdAt;
+  final String? id;
+  final FoodProduct? foodProduct;
+  final String? uid;
+  final int? createdAt;
   final Map<String, dynamic>? extraData;
 
   FoodShoppingCart({
-    required this.id,
-    required this.uid,
-    required this.foodProduct,
-    required this.createdAt,
+    this.id,
+    this.uid,
+    this.foodProduct,
+    this.createdAt,
     this.extraData,
   });
 
@@ -45,7 +45,7 @@ class FoodShoppingCart {
     return {
       'id': id,
       'uid': uid,
-      'food_product': foodProduct.toJson(),
+      'food_product': foodProduct?.toJson(),
       'created_at': createdAt,
       'extra_data': extraData ?? {},
     };
