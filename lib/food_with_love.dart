@@ -23,6 +23,7 @@ export 'src/widgets/food_with_love_text.dart';
 export 'src/widgets/food_with_love_similar_products_list.dart';
 export 'src/widgets/food_with_love_similar_products_item.dart';
 export 'src/widgets/food_with_love_checkout_block.dart';
+export 'src/widgets/food_with_love_carousel.dart';
 
 // models
 export 'models/food_category_model.dart';

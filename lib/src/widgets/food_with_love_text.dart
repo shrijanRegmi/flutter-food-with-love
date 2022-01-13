@@ -67,7 +67,10 @@ class _FoodWithLoveTextState extends State<FoodWithLoveText> {
 
   @override
   Widget build(BuildContext context) {
-    final _value = widget.expandTextLength != null && !_showingAllText
+    final _isExpanded = widget.expandTextLength != null &&
+        widget.value.length >= (widget.expandTextLength ?? 0);
+
+    final _value = _isExpanded && !_showingAllText
         ? '${widget.value.substring(0, widget.expandTextLength)}...'
         : widget.value;
 
@@ -79,11 +82,11 @@ class _FoodWithLoveTextState extends State<FoodWithLoveText> {
           style: widget.defaultStyle.merge(widget.style),
           textAlign: widget.textAlign,
         ),
-        if (widget.expandTextLength != null)
+        if (_isExpanded)
           SizedBox(
             height: 5.0,
           ),
-        if (widget.expandTextLength != null)
+        if (_isExpanded)
           GestureDetector(
             behavior: HitTestBehavior.opaque,
             onTap: () => setState(() => _showingAllText = !_showingAllText),

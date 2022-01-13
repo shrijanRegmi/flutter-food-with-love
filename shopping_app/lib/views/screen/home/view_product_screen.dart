@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:food_with_love/food_with_love.dart';
 import 'package:shopping_app/viewmodels/view_product_vm.dart';
@@ -25,15 +24,21 @@ class ViewProductScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.only(left: 10.0, top: 10.0),
                     child: IconButton(
                       onPressed: () => Navigator.pop(context),
                       icon: Icon(Icons.arrow_back_ios),
                     ),
                   ),
-                  _imgBuilder(context),
+                  FoodWithLoveCarousel(
+                    imgUrls: [
+                      product.imgUrl,
+                      product.imgUrl,
+                      product.imgUrl,
+                    ],
+                  ),
                   SizedBox(
-                    height: 50.0,
+                    height: 10.0,
                   ),
                   _detailsBuilder(context),
                 ],
@@ -42,39 +47,6 @@ class ViewProductScreen extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-
-  Widget _imgBuilder(final BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          CachedNetworkImage(
-            width: MediaQuery.of(context).size.width / 2.0,
-            height: MediaQuery.of(context).size.width / 2.0,
-            imageUrl: '${product.imgUrl}',
-          ),
-          SizedBox(
-            height: 15.0,
-          ),
-          _shadowBuilder(),
-        ],
-      ),
-    );
-  }
-
-  Widget _shadowBuilder() {
-    return Container(
-      width: 80.0,
-      height: 3.0,
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black,
-            blurRadius: 25.0,
-          ),
-        ],
-      ),
     );
   }
 
