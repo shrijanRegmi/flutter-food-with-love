@@ -64,4 +64,20 @@ class FWLUserProvider {
       onError?.call(e);
     }
   }
+
+  // get user from firestore
+  static FoodWithLoveUser _userFromFirebase(
+    final DocumentSnapshot<Map<String, dynamic>> snap,
+  ) {
+    return FoodWithLoveUser.fromJson(snap.data() ?? {});
+  }
+
+  // stream of user
+  static Stream<FoodWithLoveUser> get appUser {
+    return _ref
+        .collection(usersCol)
+        .doc(_uid)
+        .snapshots()
+        .map(_userFromFirebase);
+  }
 }

@@ -8,11 +8,16 @@ import 'package:food_with_love/src/widgets/food_with_love_button.dart';
 class FoodWithLoveProductItem extends StatefulWidget {
   final FoodProduct product;
   final FoodProductStyle style;
+  final Function(int, FoodProduct)? onBagIt;
 
-  FoodWithLoveProductItem.filled({required this.product})
-      : style = FoodProductStyle.filled;
-  FoodWithLoveProductItem.outlined({required this.product})
-      : style = FoodProductStyle.outlined;
+  FoodWithLoveProductItem.filled({
+    required this.product,
+    this.onBagIt,
+  }) : style = FoodProductStyle.filled;
+  FoodWithLoveProductItem.outlined({
+    required this.product,
+    this.onBagIt,
+  }) : style = FoodProductStyle.outlined;
 
   @override
   _FoodWithLoveProductItemState createState() =>
@@ -97,7 +102,10 @@ class _FoodWithLoveProductItemState extends State<FoodWithLoveProductItem> {
               color: Colors.brown,
               padding:
                   const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-              onPressed: () {},
+              onPressed: () => widget.onBagIt?.call(
+                _count,
+                widget.product,
+              ),
             ),
           ],
         ),

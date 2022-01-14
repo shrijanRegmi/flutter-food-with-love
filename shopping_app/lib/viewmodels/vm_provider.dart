@@ -5,7 +5,7 @@ import 'package:shopping_app/viewmodels/app_vm.dart';
 
 class VMProvider<T extends ChangeNotifier> extends StatefulWidget {
   final T vm;
-  final Widget Function(BuildContext, T, AppVm, FoodWithLoveUser?) builder;
+  final Widget Function(BuildContext, T, AppVm, FoodWithLoveUser) builder;
   final Function(T)? onInit;
   final Function(T)? onDispose;
   const VMProvider({
@@ -35,7 +35,7 @@ class _VMProviderState<T extends ChangeNotifier> extends State<VMProvider<T>> {
 
   @override
   Widget build(BuildContext context) {
-    final _appUser = Provider.of<FoodWithLoveUser?>(context);
+    final _appUser = Provider.of<FoodWithLoveUser>(context);
     final _appVm = Provider.of<AppVm>(context);
     return ChangeNotifierProvider<T>(
       create: (context) => widget.vm,

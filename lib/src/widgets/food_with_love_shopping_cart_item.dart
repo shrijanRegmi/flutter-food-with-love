@@ -22,6 +22,14 @@ class _FoodWithLoveShoppingCartItemState
   int _count = 1;
 
   @override
+  void initState() {
+    super.initState();
+    setState(() {
+      _count = widget.shoppingCart.quantity ?? 1;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
@@ -79,34 +87,11 @@ class _FoodWithLoveShoppingCartItemState
         borderRadius: BorderRadius.circular(20.0),
       ),
       child: Center(
-        child: Column(
-          children: [
-            CachedNetworkImage(
-              width: 75.0,
-              height: 75.0,
-              imageUrl: '${widget.shoppingCart.foodProduct?.imgUrl}',
-            ),
-            SizedBox(
-              height: 15.0,
-            ),
-            _shadowBuilder(),
-          ],
+        child: CachedNetworkImage(
+          width: 100.0,
+          height: 100.0,
+          imageUrl: '${widget.shoppingCart.foodProduct?.imgUrl}',
         ),
-      ),
-    );
-  }
-
-  Widget _shadowBuilder() {
-    return Container(
-      width: 50.0,
-      height: 3.0,
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black,
-            blurRadius: 18.0,
-          ),
-        ],
       ),
     );
   }
@@ -123,9 +108,9 @@ class _FoodWithLoveShoppingCartItemState
           ),
         ),
         Text(
-          'ID: ${widget.shoppingCart.foodProduct?.id}'.toUpperCase(),
+          'ID: ${widget.shoppingCart.id}'.toUpperCase(),
           style: TextStyle(
-            fontSize: 12.0,
+            fontSize: 10.0,
             color: Colors.grey,
           ),
         ),
@@ -138,14 +123,14 @@ class _FoodWithLoveShoppingCartItemState
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Rs ${(widget.shoppingCart.foodProduct?.price ?? 0) * _count}',
+          'Rs ${widget.shoppingCart.foodProduct?.price}',
           style: TextStyle(
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
           ),
         ),
         Text(
-          _count == 1 ? 'per kg' : 'for $_count kgs',
+          'per kg',
           style: TextStyle(
             fontSize: 12.0,
           ),

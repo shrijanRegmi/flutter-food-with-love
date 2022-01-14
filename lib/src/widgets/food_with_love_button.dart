@@ -55,7 +55,10 @@ class FoodWithLoveButton extends StatelessWidget {
             if (value != null)
               Text(
                 '$value',
-                style: textStyle,
+                style: textStyle ??
+                    TextStyle(
+                      color: Colors.white,
+                    ),
               ),
           ],
         ),
@@ -83,7 +86,10 @@ class FoodWithLoveButton extends StatelessWidget {
             if (value != null)
               Text(
                 '$value',
-                style: textStyle,
+                style: textStyle ??
+                    TextStyle(
+                      color: Colors.white,
+                    ),
               ),
           ],
         ),

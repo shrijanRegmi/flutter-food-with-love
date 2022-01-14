@@ -7,12 +7,14 @@ class FoodWithLoveProductsList extends StatelessWidget {
   final Function(BuildContext, int)? itemBuilder;
   final EdgeInsetsGeometry? padding;
   final Function(FoodProduct)? onPressProduct;
+  final Function(int, FoodProduct)? onBagIt;
   const FoodWithLoveProductsList({
     Key? key,
     required this.products,
     this.itemBuilder,
     this.padding,
     this.onPressProduct,
+    this.onBagIt,
   }) : super(key: key);
 
   @override
@@ -36,7 +38,10 @@ class FoodWithLoveProductsList extends StatelessWidget {
             onTap: () => onPressProduct!(_product),
             child: itemBuilder != null
                 ? itemBuilder!(context, index)
-                : FoodWithLoveProductItem.filled(product: _product),
+                : FoodWithLoveProductItem.filled(
+                    product: _product,
+                    onBagIt: onBagIt,
+                  ),
           );
         },
       ),

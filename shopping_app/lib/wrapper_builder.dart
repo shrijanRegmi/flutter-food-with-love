@@ -16,6 +16,10 @@ class WrapperBuilder extends StatelessWidget {
     if (_appUser != null)
       return MultiProvider(
         providers: [
+          StreamProvider<FoodWithLoveUser>.value(
+            initialData: FoodWithLoveUser(),
+            value: FWLUserProvider.appUser,
+          ),
           StreamProvider<List<FoodProduct>>.value(
             value: FWLProductProvider.popularProductsList,
             initialData: <FoodProduct>[],

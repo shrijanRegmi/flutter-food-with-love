@@ -4,9 +4,9 @@ import 'package:food_with_love/food_with_love.dart';
 class FoodWithLoveCheckoutBlock extends StatelessWidget {
   final List<FoodShoppingCart> shoppingCarts;
 
-  const FoodWithLoveCheckoutBlock(
-    this.shoppingCarts, {
+  const FoodWithLoveCheckoutBlock({
     Key? key,
+    required this.shoppingCarts,
   }) : super(key: key);
 
   @override
@@ -86,8 +86,7 @@ class FoodWithLoveCheckoutBlock extends StatelessWidget {
   int _getTotalPrice() {
     int _total = 0;
     shoppingCarts.forEach((cart) {
-      _total +=
-          ((cart.foodProduct?.price ?? 0) * (cart.foodProduct?.quantity ?? 1));
+      _total += ((cart.foodProduct?.price ?? 0) * (cart.quantity ?? 1));
     });
     return _total;
   }

@@ -47,15 +47,41 @@ class FWLProductProvider {
     final Function(dynamic)? onSuccess,
     final Function(dynamic)? onError,
   }) async {
+    final _currentDate = DateTime.now().millisecondsSinceEpoch;
     try {
-      final _shoppingCartRef = _ref
-          .collection(usersCol)
-          .doc(shoppingCart.uid)
-          .collection(shoppingCartsCol)
-          .doc();
-      final _shoppingCart = shoppingCart.copyWith(id: _shoppingCartRef.id);
-      await _shoppingCartRef.set(_shoppingCart.toJson());
-      onSuccess?.call(_shoppingCart);
+      final _userShoppingCartRef =
+          _ref.collection(usersCol).doc(_uid).collection(shoppingCartsCol);
+      final _shoppingCartsRef = _userShoppingCartRef
+          .where('food_product_id', isEqualTo: shoppingCart.foodProductId)
+          .limit(1);
+      final _shoppingCartSnaps = await _shoppingCartsRef.get();
+
+      if (_shoppingCartSnaps.docs.isEmpty) {
+        final _shoppingCartRef = _userShoppingCartRef.doc();
+        final _shoppingCart = shoppingCart.copyWith(
+          id: _shoppingCartRef.id,
+          uid: _uid,
+          createdAt: _currentDate,
+        );
+        await _shoppingCartRef.set(_shoppingCart.toJson());
+        onSuccess?.call(_shoppingCart);
+      } else {
+        final _shoppingCartDoc = _shoppingCartSnaps.docs.first;
+        if (_shoppingCartDoc.exists) {
+          final _shoppingCartRef =
+              _userShoppingCartRef.doc(_shoppingCartDoc.id);
+          final _shoppingCartFromFirestore =
+              FoodShoppingCart.fromJson(_shoppingCartDoc.data());
+          final _shoppingCart = _shoppingCartFromFirestore.copyWith(
+              quantity: (_shoppingCartFromFirestore.quantity ?? 0) +
+                  (shoppingCart.quantity ?? 0));
+          await _shoppingCartRef.update({
+            'quantity': FieldValue.increment(shoppingCart.quantity ?? 0),
+            'created_at': _currentDate,
+          });
+          onSuccess?.call(_shoppingCart);
+        }
+      }
     } catch (e) {
       print(e);
       print('Error!!!: Adding to shopping cart');
