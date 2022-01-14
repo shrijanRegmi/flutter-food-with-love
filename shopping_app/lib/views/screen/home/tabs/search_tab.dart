@@ -25,7 +25,7 @@ class SearchTab extends StatelessWidget {
             ),
             FoodWithLoveSearchBar(
               searchController: vm.searchController,
-              onPressed: () => vm.searchProducts(appUser),
+              onPressed: () => vm.searchProducts(appUser!),
             ),
             SizedBox(
               height: 20.0,

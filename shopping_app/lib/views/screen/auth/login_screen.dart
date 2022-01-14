@@ -63,6 +63,9 @@ class LoginScreen extends StatelessWidget {
                                 FoodWithLoveButton.bordered(
                                   value: 'Login',
                                   borderRadius: 10.0,
+                                  textStyle: TextStyle(
+                                    color: kcPrimaryColor,
+                                  ),
                                   onPressed: () {
                                     removeFocus(context);
                                     vm.loginUser();

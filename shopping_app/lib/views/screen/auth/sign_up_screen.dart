@@ -109,7 +109,8 @@ class SignUpScreen extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     FoodWithLoveText.body(
-                                        'or, sign up with...'),
+                                      'or, sign up with...',
+                                    ),
                                   ],
                                 ),
                                 SizedBox(
@@ -160,6 +161,9 @@ class SignUpScreen extends StatelessWidget {
                                 FoodWithLoveButton.bordered(
                                   value: 'Sign Up',
                                   borderRadius: 10.0,
+                                  textStyle: TextStyle(
+                                    color: kcPrimaryColor,
+                                  ),
                                   onPressed: () {
                                     removeFocus(context);
                                     vm.signUpUser();
