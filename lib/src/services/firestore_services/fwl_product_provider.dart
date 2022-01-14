@@ -216,6 +216,7 @@ class FWLProductProvider {
   // add product to last search
   static Future<void> addToLastSearch({
     required final FoodProduct foodProduct,
+    final bool full = false,
     final Function(dynamic)? onSuccess,
     final Function(dynamic)? onError,
   }) async {
@@ -258,6 +259,21 @@ class FWLProductProvider {
             'created_at': _currentDate,
           });
           onSuccess?.call(_foodLastSearch);
+        }
+      }
+
+      if (full) {
+        final _lastSearchesRef =
+            _userLastSearchesRef.orderBy('created_at').limit(1);
+        final _lastSearchesSnap = await _lastSearchesRef.get();
+
+        if (_lastSearchesSnap.docs.isNotEmpty) {
+          final _lastSearchSnap = _lastSearchesSnap.docs.first;
+
+          if (_lastSearchSnap.exists) {
+            final _lastSearch = FoodLastSearch.fromJson(_lastSearchSnap.data());
+            removeFromLastSearch(foodProduct: _lastSearch.foodProduct!);
+          }
         }
       }
     } catch (e) {

@@ -19,6 +19,7 @@ class SearchVm extends ChangeNotifier {
       FocusScope.of(context).unfocus();
       final _products =
           await FWLProductProvider.search(_searchController.text.trim());
+      _searchController.clear();
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -26,9 +27,10 @@ class SearchVm extends ChangeNotifier {
             title: 'Search Results',
             products: _products,
             onPressProduct: (product) {
-              if ((appUser.lastSearches?.length ?? 0) < 10) {
-                FWLProductProvider.addToLastSearch(foodProduct: product);
-              }
+              FWLProductProvider.addToLastSearch(
+                foodProduct: product,
+                full: (appUser.lastSearches?.length ?? 0) >= 8,
+              );
             },
           ),
         ),
