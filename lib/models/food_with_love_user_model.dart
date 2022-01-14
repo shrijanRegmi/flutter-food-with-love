@@ -6,6 +6,8 @@ class FoodWithLoveUser {
   final String? email;
   final String? photoUrl;
   final OnlineStatus? onlineStatus;
+  final List<String>? wishlists;
+  final List<String>? shoppingCarts;
   final Map<String, dynamic>? extraData;
 
   FoodWithLoveUser({
@@ -14,6 +16,8 @@ class FoodWithLoveUser {
     this.email,
     this.photoUrl,
     this.onlineStatus,
+    this.wishlists,
+    this.shoppingCarts,
     this.extraData,
   });
 
@@ -22,6 +26,8 @@ class FoodWithLoveUser {
     final String? name,
     final String? email,
     final String? photoUrl,
+    final List<String>? wishlists,
+    final List<String>? shoppingCarts,
     final OnlineStatus? onlineStatus,
     final Map<String, dynamic>? extraData,
   }) {
@@ -30,6 +36,8 @@ class FoodWithLoveUser {
       name: name ?? this.name,
       email: email ?? this.email,
       photoUrl: photoUrl ?? this.photoUrl,
+      wishlists: wishlists ?? this.wishlists,
+      shoppingCarts: shoppingCarts ?? this.shoppingCarts,
       onlineStatus: onlineStatus ?? this.onlineStatus,
       extraData: extraData ?? this.extraData,
     );
@@ -41,6 +49,8 @@ class FoodWithLoveUser {
       name: data['name'],
       email: data['email'],
       photoUrl: data['photo_url'],
+      wishlists: List<String>.from(data['wishlists'] ?? []),
+      shoppingCarts: List<String>.from(data['shopping_carts'] ?? []),
       onlineStatus: OnlineStatus.values[data['online_status'] ?? 0],
       extraData: data['extra_data'],
     );

@@ -14,12 +14,6 @@ class ExploreVm extends ChangeNotifier {
     final FoodProduct product,
     final int quantity,
   ) {
-    final _shoppingCart = FoodShoppingCart(
-      foodProductId: product.id,
-      foodProduct: product,
-      quantity: quantity,
-    );
-
-    FWLProductProvider.addToCart(_shoppingCart);
+    FWLProductProvider.addToCart(foodProduct: product, quantity: quantity);
   }
 }

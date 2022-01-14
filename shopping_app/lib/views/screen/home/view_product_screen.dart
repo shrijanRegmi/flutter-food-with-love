@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_with_love/food_with_love.dart';
+import 'package:provider/provider.dart';
 import 'package:shopping_app/viewmodels/view_product_vm.dart';
 import 'package:shopping_app/viewmodels/vm_provider.dart';
 
@@ -12,9 +13,11 @@ class ViewProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _appUser = Provider.of<FoodWithLoveUser>(context);
+
     return VMProvider<ViewProductVm>(
       vm: ViewProductVm(context, product),
-      onInit: (vm) => vm.onInit(),
+      onInit: (vm) => vm.onInit(_appUser),
       builder: (context, vm, appVm, appUser) {
         return Scaffold(
           backgroundColor: product.color,
@@ -40,7 +43,7 @@ class ViewProductScreen extends StatelessWidget {
                   SizedBox(
                     height: 10.0,
                   ),
-                  _detailsBuilder(context),
+                  _detailsBuilder(context, vm),
                 ],
               ),
             ),
@@ -50,7 +53,7 @@ class ViewProductScreen extends StatelessWidget {
     );
   }
 
-  Widget _detailsBuilder(final BuildContext context) {
+  Widget _detailsBuilder(final BuildContext context, final ViewProductVm vm) {
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
@@ -66,7 +69,7 @@ class ViewProductScreen extends StatelessWidget {
           SizedBox(
             height: 20.0,
           ),
-          _titleAndDescriptionBuilder(),
+          _titleAndDescriptionBuilder(vm),
           FoodWithLoveLeftRightText(
             leftText: 'Similar',
             rightText: 'View All',
@@ -94,20 +97,47 @@ class ViewProductScreen extends StatelessWidget {
     );
   }
 
-  Widget _titleAndDescriptionBuilder() {
+  Widget _favouriteBuilder(final ViewProductVm vm) {
+    return IconButton(
+      onPressed: () {
+        if (!vm.iconActive) {
+          vm.addToWishList();
+        } else {
+          vm.removeFromWishList();
+        }
+      },
+      icon: Icon(
+        vm.iconActive ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
+        size: 30.0,
+      ),
+    );
+  }
+
+  Widget _titleAndDescriptionBuilder(final ViewProductVm vm) {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          FoodWithLoveText.heading1(
-            '${product.title}',
-          ),
-          FoodWithLoveText.heading5(
-            'Rs ${product.price} per kg',
-            style: TextStyle(
-              color: Colors.green,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FoodWithLoveText.heading1(
+                    '${product.title}',
+                  ),
+                  FoodWithLoveText.heading5(
+                    'Rs ${product.price} per kg',
+                    style: TextStyle(
+                      color: Colors.green,
+                    ),
+                  ),
+                ],
+              ),
+              _favouriteBuilder(vm),
+            ],
           ),
           SizedBox(
             height: 20.0,

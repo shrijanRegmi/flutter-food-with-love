@@ -42,41 +42,50 @@ class FWLProductProvider {
   }
 
   // add to cart
-  static Future<void> addToCart(
-    final FoodShoppingCart shoppingCart, {
+  static Future<void> addToCart({
+    required final FoodProduct foodProduct,
+    required final int quantity,
     final Function(dynamic)? onSuccess,
     final Function(dynamic)? onError,
   }) async {
     final _currentDate = DateTime.now().millisecondsSinceEpoch;
+
     try {
       final _userShoppingCartRef =
           _ref.collection(usersCol).doc(_uid).collection(shoppingCartsCol);
       final _shoppingCartsRef = _userShoppingCartRef
-          .where('food_product_id', isEqualTo: shoppingCart.foodProductId)
+          .where('food_product_id', isEqualTo: foodProduct.id)
           .limit(1);
       final _shoppingCartSnaps = await _shoppingCartsRef.get();
 
       if (_shoppingCartSnaps.docs.isEmpty) {
         final _shoppingCartRef = _userShoppingCartRef.doc();
-        final _shoppingCart = shoppingCart.copyWith(
+        final _shoppingCart = FoodShoppingCart(
           id: _shoppingCartRef.id,
           uid: _uid,
           createdAt: _currentDate,
+          foodProduct: foodProduct,
+          foodProductId: foodProduct.id,
         );
         await _shoppingCartRef.set(_shoppingCart.toJson());
+
+        // add this shopping cart to user doc
+        await FWLUserProvider.updateUserProfile({
+          'shopping_carts': FieldValue.arrayUnion([foodProduct.id]),
+        });
         onSuccess?.call(_shoppingCart);
       } else {
-        final _shoppingCartDoc = _shoppingCartSnaps.docs.first;
-        if (_shoppingCartDoc.exists) {
+        final _shoppingCartSnap = _shoppingCartSnaps.docs.first;
+
+        if (_shoppingCartSnap.exists) {
           final _shoppingCartRef =
-              _userShoppingCartRef.doc(_shoppingCartDoc.id);
+              _userShoppingCartRef.doc(_shoppingCartSnap.id);
           final _shoppingCartFromFirestore =
-              FoodShoppingCart.fromJson(_shoppingCartDoc.data());
+              FoodShoppingCart.fromJson(_shoppingCartSnap.data());
           final _shoppingCart = _shoppingCartFromFirestore.copyWith(
-              quantity: (_shoppingCartFromFirestore.quantity ?? 0) +
-                  (shoppingCart.quantity ?? 0));
+              quantity: (_shoppingCartFromFirestore.quantity ?? 0) + quantity);
           await _shoppingCartRef.update({
-            'quantity': FieldValue.increment(shoppingCart.quantity ?? 0),
+            'quantity': FieldValue.increment(quantity),
             'created_at': _currentDate,
           });
           onSuccess?.call(_shoppingCart);
@@ -103,6 +112,11 @@ class FWLProductProvider {
           .doc(cart.id);
 
       await _shoppingCartRef.delete();
+
+      // remove this shopping cart from user doc
+      await FWLUserProvider.updateUserProfile({
+        'shopping_carts': FieldValue.arrayRemove(['']),
+      });
       onSuccess?.call(cart);
     } catch (e) {
       print(e);
@@ -112,20 +126,53 @@ class FWLProductProvider {
   }
 
   // add to wishlist
-  static Future<void> addToWishlist(
-    final FoodWishlist wishlist, {
+  static Future<void> addToWishlist({
+    required final FoodProduct foodProduct,
     final Function(dynamic)? onSuccess,
     final Function(dynamic)? onError,
   }) async {
+    final _currentDate = DateTime.now().millisecondsSinceEpoch;
+
     try {
-      final _wishlistRef = _ref
-          .collection(usersCol)
-          .doc(wishlist.uid)
-          .collection(wishListsCol)
-          .doc();
-      final _wishlist = wishlist.copyWith(id: _wishlistRef.id);
-      await _wishlistRef.set(_wishlist.toJson());
-      onSuccess?.call(_wishlist);
+      final _userWishlistsRef =
+          _ref.collection(usersCol).doc(_uid).collection(wishListsCol);
+      final _wishlistsRef = _userWishlistsRef
+          .where('food_product_id', isEqualTo: foodProduct.id)
+          .limit(1);
+      final _wishlistsSnap = await _wishlistsRef.get();
+
+      if (_wishlistsSnap.docs.isEmpty) {
+        final _wishlistRef = _userWishlistsRef.doc();
+        final _wishlist = FoodWishlist(
+          id: _wishlistRef.id,
+          uid: _uid,
+          createdAt: _currentDate,
+          foodProduct: foodProduct,
+          foodProductId: foodProduct.id,
+        );
+        await _wishlistRef.set(_wishlist.toJson());
+
+        // add this wishlist to user doc
+        await FWLUserProvider.updateUserProfile({
+          'wishlists': FieldValue.arrayUnion([foodProduct.id]),
+        });
+        onSuccess?.call(_wishlist);
+      } else {
+        final _wishlistSnap = _wishlistsSnap.docs.first;
+
+        if (_wishlistSnap.exists) {
+          final _wishlistRef = _userWishlistsRef.doc(_wishlistSnap.id);
+          final _wishlistFromFirestore =
+              FoodWishlist.fromJson(_wishlistSnap.data());
+          final _wishlist = _wishlistFromFirestore.copyWith(
+            createdAt: _currentDate,
+          );
+          await _wishlistRef.update({
+            'created_at': _currentDate,
+          });
+          onSuccess?.call(_wishlist);
+        }
+      }
     } catch (e) {
       print(e);
       print('Error!!!: Adding to wishlist');
@@ -134,20 +181,31 @@ class FWLProductProvider {
   }
 
   // remove from wishlist
-  static Future<void> removeFromWishlist(
-    final FoodWishlist wishlist, {
+  static Future<void> removeFromWishlist({
+    required final FoodProduct foodProduct,
     final Function(dynamic)? onSuccess,
     final Function(dynamic)? onError,
   }) async {
     try {
-      final _wishlistRef = _ref
-          .collection(usersCol)
-          .doc(wishlist.uid)
-          .collection(wishListsCol)
-          .doc(wishlist.id);
+      final _userWishlistsRef =
+          _ref.collection(usersCol).doc(_uid).collection(wishListsCol);
 
-      await _wishlistRef.delete();
-      onSuccess?.call(wishlist);
+      final _wishlistsRef = _userWishlistsRef
+          .where('food_product_id', isEqualTo: foodProduct.id)
+          .limit(1);
+      final _wishlistsSnap = await _wishlistsRef.get();
+
+      if (_wishlistsSnap.docs.isNotEmpty) {
+        final _wishlistSnap = _wishlistsSnap.docs.first;
+        final _wishlist = FoodWishlist.fromJson(_wishlistSnap.data());
+        await _wishlistSnap.reference.delete();
+
+        // remove this wishlist from user doc
+        await FWLUserProvider.updateUserProfile({
+          'wishlists': FieldValue.arrayRemove([foodProduct.id]),
+        });
+        onSuccess?.call(_wishlist);
+      }
     } catch (e) {
       print(e);
       print('Error!!!: Removing from wishlist');
