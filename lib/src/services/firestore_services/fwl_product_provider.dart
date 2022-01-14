@@ -16,7 +16,7 @@ class FWLProductProvider {
     try {
       final _productsRef = _ref
           .collection(productsCol)
-          .where('search_keys', arrayContains: searchKey);
+          .where('search_keys', arrayContains: searchKey.toUpperCase());
       final _productsSnap = await _productsRef.get();
       _productsSnap.docs.forEach((snap) {
         final _data = snap.data();
@@ -214,23 +214,88 @@ class FWLProductProvider {
   }
 
   // add product to last search
-  static Future<void> addToLastSearch(
-    final FoodLastSearch foodLastSearch, {
+  static Future<void> addToLastSearch({
+    required final FoodProduct foodProduct,
+    final Function(dynamic)? onSuccess,
+    final Function(dynamic)? onError,
+  }) async {
+    final _currentDate = DateTime.now().millisecondsSinceEpoch;
+    try {
+      final _userLastSearchesRef =
+          _ref.collection(usersCol).doc(_uid).collection(lastSearchesCol);
+      final _lastSearchesRef = _userLastSearchesRef
+          .where('food_product_id', isEqualTo: foodProduct.id)
+          .limit(1);
+      final _lastSearchesSnap = await _lastSearchesRef.get();
+
+      if (_lastSearchesSnap.docs.isEmpty) {
+        final _lastSearchRef = _userLastSearchesRef.doc();
+        final _foodLastSearch = FoodLastSearch(
+          id: _lastSearchRef.id,
+          uid: _uid,
+          foodProduct: foodProduct,
+          foodProductId: foodProduct.id,
+          createdAt: _currentDate,
+        );
+        await _lastSearchRef.set(_foodLastSearch.toJson());
+
+        // add this last search to user doc
+        await FWLUserProvider.updateUserProfile({
+          'last_searches': FieldValue.arrayUnion([foodProduct.id]),
+        });
+        onSuccess?.call(_foodLastSearch);
+      } else {
+        final _lastSearchSnap = _lastSearchesSnap.docs.first;
+
+        if (_lastSearchSnap.exists) {
+          final _lastSearchRef = _userLastSearchesRef.doc(_lastSearchSnap.id);
+          final _lastSearchFromFirestore =
+              FoodLastSearch.fromJson(_lastSearchSnap.data());
+          final _foodLastSearch = _lastSearchFromFirestore.copyWith(
+            createdAt: _currentDate,
+          );
+          await _lastSearchRef.update({
+            'created_at': _currentDate,
+          });
+          onSuccess?.call(_foodLastSearch);
+        }
+      }
+    } catch (e) {
+      print(e);
+      print('Error!!!: Adding product to last search');
+      onError?.call(e);
+    }
+  }
+
+  // remove from last search
+  static Future<void> removeFromLastSearch({
+    required final FoodProduct foodProduct,
     final Function(dynamic)? onSuccess,
     final Function(dynamic)? onError,
   }) async {
     try {
-      final _lastSearchRef = _ref
-          .collection(usersCol)
-          .doc(foodLastSearch.uid)
-          .collection(lastSearchesCol)
-          .doc();
-      final _foodLastSearch = foodLastSearch.copyWith(id: _lastSearchRef.id);
-      await _lastSearchRef.set(_foodLastSearch.toJson());
-      onSuccess?.call(_foodLastSearch);
+      final _userLastSearchesRef =
+          _ref.collection(usersCol).doc(_uid).collection(lastSearchesCol);
+
+      final _lastSearchesRef = _userLastSearchesRef
+          .where('food_product_id', isEqualTo: foodProduct.id)
+          .limit(1);
+      final _lastSearchesSnap = await _lastSearchesRef.get();
+
+      if (_lastSearchesSnap.docs.isNotEmpty) {
+        final _lastSearchSnap = _lastSearchesSnap.docs.first;
+        final _foodLastSearch = FoodLastSearch.fromJson(_lastSearchSnap.data());
+        await _lastSearchSnap.reference.delete();
+
+        // remove this last search from user doc
+        await FWLUserProvider.updateUserProfile({
+          'last_searches': FieldValue.arrayRemove([foodProduct.id]),
+        });
+        onSuccess?.call(_foodLastSearch);
+      }
     } catch (e) {
       print(e);
-      print('Error!!!: Adding product to last search');
+      print('Error!!!: Removing from wishlist');
       onError?.call(e);
     }
   }

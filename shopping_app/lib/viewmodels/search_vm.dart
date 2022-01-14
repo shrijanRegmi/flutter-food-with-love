@@ -1,0 +1,47 @@
+import 'package:flutter/material.dart';
+import 'package:food_with_love/food_with_love.dart';
+import 'package:provider/provider.dart';
+import 'package:shopping_app/views/screen/home/view_all_products_screen.dart';
+
+class SearchVm extends ChangeNotifier {
+  final BuildContext context;
+  SearchVm(this.context);
+
+  TextEditingController _searchController = TextEditingController();
+
+  TextEditingController get searchController => _searchController;
+  List<FoodLastSearch> get lastSearches =>
+      Provider.of<List<FoodLastSearch>>(context);
+
+  // search products
+  void searchProducts(final FoodWithLoveUser appUser) async {
+    if (_searchController.text.trim() != '') {
+      FocusScope.of(context).unfocus();
+      final _products =
+          await FWLProductProvider.search(_searchController.text.trim());
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => ViewAllProductScreen(
+            title: 'Search Results',
+            products: _products,
+            onPressProduct: (product) {
+              if ((appUser.lastSearches?.length ?? 0) < 10) {
+                FWLProductProvider.addToLastSearch(foodProduct: product);
+              }
+            },
+          ),
+        ),
+      );
+    }
+  }
+
+  // clear last searches
+  void clearLastSearches(final List<FoodProduct> products) async {
+    for (final _product in products) {
+      FWLProductProvider.removeFromLastSearch(
+        foodProduct: _product,
+      );
+    }
+  }
+}

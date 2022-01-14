@@ -43,6 +43,7 @@ class FoodWithLoveSearchBar extends StatelessWidget {
                   controller: searchController,
                   decoration: InputDecoration(
                     border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
                     hintText: 'What are you searching ?',
                     contentPadding: const EdgeInsets.only(top: 15.0),
                     prefixIcon: Icon(
