@@ -8,7 +8,7 @@ import 'package:food_with_love/src/widgets/food_with_love_button.dart';
 class FoodWithLoveProductItem extends StatefulWidget {
   final FoodProduct product;
   final FoodProductStyle style;
-  final Function(int, FoodProduct)? onBagIt;
+  final Function(FoodProduct, int)? onBagIt;
 
   FoodWithLoveProductItem.filled({
     required this.product,
@@ -102,10 +102,16 @@ class _FoodWithLoveProductItemState extends State<FoodWithLoveProductItem> {
               color: Colors.brown,
               padding:
                   const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-              onPressed: () => widget.onBagIt?.call(
-                _count,
-                widget.product,
-              ),
+              onPressed: () {
+                widget.onBagIt?.call(
+                  widget.product,
+                  _count,
+                );
+                setState(() {
+                  _isAdding = false;
+                  _count = 1;
+                });
+              },
             ),
           ],
         ),

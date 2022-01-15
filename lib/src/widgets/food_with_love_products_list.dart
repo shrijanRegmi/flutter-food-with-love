@@ -7,7 +7,7 @@ class FoodWithLoveProductsList extends StatelessWidget {
   final Function(BuildContext, int)? itemBuilder;
   final EdgeInsetsGeometry? padding;
   final Function(FoodProduct)? onPressProduct;
-  final Function(int, FoodProduct)? onBagIt;
+  final Function(FoodProduct, int)? onBagIt;
   const FoodWithLoveProductsList({
     Key? key,
     required this.products,

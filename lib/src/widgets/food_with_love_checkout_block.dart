@@ -88,6 +88,6 @@ class FoodWithLoveCheckoutBlock extends StatelessWidget {
     shoppingCarts.forEach((cart) {
       _total += ((cart.foodProduct?.price ?? 0) * (cart.quantity ?? 1));
     });
-    return _total;
+    return _total + _getShippingPrice();
   }
 }

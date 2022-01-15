@@ -45,7 +45,7 @@ class FWLProductProvider {
   static Future<void> addToCart({
     required final FoodProduct foodProduct,
     required final int quantity,
-    final Function(dynamic)? onSuccess,
+    final Function(FoodShoppingCart)? onSuccess,
     final Function(dynamic)? onError,
   }) async {
     final _currentDate = DateTime.now().millisecondsSinceEpoch;
@@ -66,6 +66,7 @@ class FWLProductProvider {
           createdAt: _currentDate,
           foodProduct: foodProduct,
           foodProductId: foodProduct.id,
+          quantity: quantity,
         );
         await _shoppingCartRef.set(_shoppingCart.toJson());
 
@@ -99,25 +100,55 @@ class FWLProductProvider {
   }
 
   // remove from cart
-  static Future<void> removeFromCart(
-    final FoodShoppingCart cart, {
-    final Function(dynamic)? onSuccess,
+  static Future<void> removeFromCart({
+    required final FoodProduct foodProduct,
+    final Function(FoodShoppingCart)? onSuccess,
     final Function(dynamic)? onError,
   }) async {
     try {
-      final _shoppingCartRef = _ref
-          .collection(usersCol)
-          .doc(cart.uid)
-          .collection(wishListsCol)
-          .doc(cart.id);
+      final _userShoppingCartsRef =
+          _ref.collection(usersCol).doc(_uid).collection(shoppingCartsCol);
 
-      await _shoppingCartRef.delete();
+      final _shoppingCartsRef = _userShoppingCartsRef
+          .where('food_product_id', isEqualTo: foodProduct.id)
+          .limit(1);
+      final _shoppingCartsSnap = await _shoppingCartsRef.get();
 
-      // remove this shopping cart from user doc
-      await FWLUserProvider.updateUserProfile({
-        'shopping_carts': FieldValue.arrayRemove(['']),
+      if (_shoppingCartsSnap.docs.isNotEmpty) {
+        final _shoppingCartSnap = _shoppingCartsSnap.docs.first;
+        final _shoppingCart =
+            FoodShoppingCart.fromJson(_shoppingCartSnap.data());
+        await _shoppingCartSnap.reference.delete();
+
+        // remove this shopping cart from user doc
+        await FWLUserProvider.updateUserProfile({
+          'shopping_carts': FieldValue.arrayRemove(['']),
+        });
+        onSuccess?.call(_shoppingCart);
+      }
+    } catch (e) {
+      print(e);
+      print('Error!!!: Removing from shopping cart');
+      onError?.call(e);
+    }
+  }
+
+  // update cart quantity
+  static Future<void> updateCartQuantity({
+    required final FoodShoppingCart foodShoppingCart,
+    required final int quantity,
+    final Function(FoodShoppingCart)? onSuccess,
+    final Function(dynamic)? onError,
+  }) async {
+    try {
+      final _userShoppingCartsRef =
+          _ref.collection(usersCol).doc(_uid).collection(shoppingCartsCol);
+      final _shoppingCartsRef = _userShoppingCartsRef.doc(foodShoppingCart.id);
+      final _shoppingCart = foodShoppingCart.copyWith(quantity: quantity);
+      await _shoppingCartsRef.update({
+        'quantity': quantity,
       });
-      onSuccess?.call(cart);
+      onSuccess?.call(_shoppingCart);
     } catch (e) {
       print(e);
       print('Error!!!: Removing from shopping cart');
@@ -128,7 +159,7 @@ class FWLProductProvider {
   // add to wishlist
   static Future<void> addToWishlist({
     required final FoodProduct foodProduct,
-    final Function(dynamic)? onSuccess,
+    final Function(FoodWishlist)? onSuccess,
     final Function(dynamic)? onError,
   }) async {
     final _currentDate = DateTime.now().millisecondsSinceEpoch;
@@ -183,7 +214,7 @@ class FWLProductProvider {
   // remove from wishlist
   static Future<void> removeFromWishlist({
     required final FoodProduct foodProduct,
-    final Function(dynamic)? onSuccess,
+    final Function(FoodWishlist)? onSuccess,
     final Function(dynamic)? onError,
   }) async {
     try {
@@ -217,7 +248,7 @@ class FWLProductProvider {
   static Future<void> addToLastSearch({
     required final FoodProduct foodProduct,
     final bool full = false,
-    final Function(dynamic)? onSuccess,
+    final Function(FoodLastSearch)? onSuccess,
     final Function(dynamic)? onError,
   }) async {
     final _currentDate = DateTime.now().millisecondsSinceEpoch;
@@ -286,7 +317,7 @@ class FWLProductProvider {
   // remove from last search
   static Future<void> removeFromLastSearch({
     required final FoodProduct foodProduct,
-    final Function(dynamic)? onSuccess,
+    final Function(FoodLastSearch)? onSuccess,
     final Function(dynamic)? onError,
   }) async {
     try {

@@ -6,10 +6,12 @@ import 'package:food_with_love/src/shared/app_colors.dart';
 class FoodWithLoveShoppingCartItem extends StatefulWidget {
   final FoodShoppingCart shoppingCart;
   final Function(int) onQuantityUpdate;
+  final Function(FoodShoppingCart)? onPressRemove;
   const FoodWithLoveShoppingCartItem({
     Key? key,
     required this.shoppingCart,
     required this.onQuantityUpdate,
+    this.onPressRemove,
   }) : super(key: key);
 
   @override
@@ -30,10 +32,19 @@ class _FoodWithLoveShoppingCartItemState
   }
 
   @override
+  void didUpdateWidget(FoodWithLoveShoppingCartItem oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    setState(() {
+      _count = widget.shoppingCart.quantity ?? 1;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
       child: Stack(
+        clipBehavior: Clip.none,
         children: [
           Container(
             height: 180.0,
@@ -73,6 +84,11 @@ class _FoodWithLoveShoppingCartItemState
             bottom: 0.0,
             right: 0.0,
             child: _addRemoveBuilder(),
+          ),
+          Positioned(
+            top: -12.0,
+            left: 20.0,
+            child: _removeItemBuilder(),
           ),
         ],
       ),
@@ -207,6 +223,45 @@ class _FoodWithLoveShoppingCartItemState
           ),
         ),
       ],
+    );
+  }
+
+  Widget _removeItemBuilder() {
+    return GestureDetector(
+      onTap: () => widget.onPressRemove?.call(widget.shoppingCart),
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        decoration: BoxDecoration(
+          color: kcPrimaryColor,
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        padding: const EdgeInsets.symmetric(
+          vertical: 3.0,
+          horizontal: 8.0,
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.close,
+              size: 18.0,
+              color: Colors.white,
+            ),
+            SizedBox(
+              width: 5.0,
+            ),
+            Text(
+              'Remove',
+              style: TextStyle(
+                fontSize: 12.0,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

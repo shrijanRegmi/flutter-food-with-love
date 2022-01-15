@@ -6,11 +6,15 @@ class FoodWithLoveShoppingCartList extends StatelessWidget {
   final List<FoodShoppingCart> shoppingCarts;
   final Widget Function(BuildContext, int)? itemBuilder;
   final Function(FoodShoppingCart, int)? onQuantityUpdate;
+  final Function(FoodShoppingCart)? onPressShoppingCart;
+  final Function(FoodShoppingCart)? onPressRemove;
   const FoodWithLoveShoppingCartList({
     Key? key,
     required this.shoppingCarts,
     this.itemBuilder,
     this.onQuantityUpdate,
+    this.onPressShoppingCart,
+    this.onPressRemove,
   }) : super(key: key);
 
   @override
@@ -22,14 +26,19 @@ class FoodWithLoveShoppingCartList extends StatelessWidget {
       itemBuilder: (context, index) {
         final _shoppingCart = shoppingCarts[index];
 
-        return itemBuilder != null
-            ? itemBuilder!(context, index)
-            : FoodWithLoveShoppingCartItem(
-                shoppingCart: _shoppingCart,
-                onQuantityUpdate: (int quantity) {
-                  onQuantityUpdate?.call(_shoppingCart, quantity);
-                },
-              );
+        return GestureDetector(
+          onTap: () => onPressShoppingCart?.call(_shoppingCart),
+          behavior: HitTestBehavior.opaque,
+          child: itemBuilder != null
+              ? itemBuilder!(context, index)
+              : FoodWithLoveShoppingCartItem(
+                  shoppingCart: _shoppingCart,
+                  onQuantityUpdate: (int quantity) {
+                    onQuantityUpdate?.call(_shoppingCart, quantity);
+                  },
+                  onPressRemove: onPressRemove,
+                ),
+        );
       },
     );
   }
