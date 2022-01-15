@@ -35,7 +35,7 @@ class ShoppingApp extends StatelessWidget {
       child: WrapperBuilder(
         builder: (context) {
           return MaterialApp(
-            title: "Food with Love",
+            title: "Food With Love",
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               fontFamily: 'Nunito',
