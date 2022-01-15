@@ -59,8 +59,8 @@ class ExploreTab extends StatelessWidget {
               ),
               FoodWithLoveProductsList(
                 products: appVm.popularProducts,
-                onBagIt: (quantity, product) =>
-                    vm.addToShoppingCart(product, quantity),
+                onBagIt: (product, quantity) =>
+                    appVm.addToShoppingCart(context, product, quantity),
                 onPressProduct: (product) => Navigator.push(
                   context,
                   MaterialPageRoute(

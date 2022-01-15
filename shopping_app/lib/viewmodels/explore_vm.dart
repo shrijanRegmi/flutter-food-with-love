@@ -8,12 +8,4 @@ class ExploreVm extends ChangeNotifier {
 
   List<FoodProduct> get popularProducts =>
       Provider.of<List<FoodProduct>>(context);
-
-  // add product to shopping cart
-  void addToShoppingCart(
-    final FoodProduct product,
-    final int quantity,
-  ) {
-    FWLProductProvider.addToCart(foodProduct: product, quantity: quantity);
-  }
 }

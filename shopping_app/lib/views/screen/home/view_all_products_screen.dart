@@ -57,6 +57,8 @@ class ViewAllProductScreen extends StatelessWidget {
                     physics: BouncingScrollPhysics(),
                     child: FoodWithLoveProductsList(
                       products: products,
+                      onBagIt: (product, quantity) =>
+                          appVm.addToShoppingCart(context, product, quantity),
                       onPressProduct: (product) {
                         onPressProduct?.call(product);
                         Navigator.push(

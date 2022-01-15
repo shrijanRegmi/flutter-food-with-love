@@ -50,6 +50,8 @@ class SearchTab extends StatelessWidget {
                           final _product = _lastSearches[index];
                           return FoodWithLoveProductItem.outlined(
                             product: _product,
+                            onBagIt: (product, quantity) => appVm
+                                .addToShoppingCart(context, product, quantity),
                           );
                         },
                         onPressProduct: (product) => Navigator.push(

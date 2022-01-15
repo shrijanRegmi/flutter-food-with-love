@@ -8,4 +8,20 @@ class ShoppingCartVm extends ChangeNotifier {
 
   List<FoodShoppingCart> get shoppingCarts =>
       Provider.of<List<FoodShoppingCart>>(context);
+
+  // remove item from shopping cart
+  void removeFromShoppingCart(final FoodShoppingCart shoppingCart) {
+    FWLProductProvider.removeFromCart(foodProduct: shoppingCart.foodProduct!);
+  }
+
+  // update cart quantity
+  void updateCartQuantity(
+    final FoodShoppingCart shoppingCart,
+    final int quantity,
+  ) {
+    FWLProductProvider.updateCartQuantity(
+      foodShoppingCart: shoppingCart,
+      quantity: quantity,
+    );
+  }
 }

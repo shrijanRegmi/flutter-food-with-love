@@ -26,6 +26,8 @@ class FavouritesTab extends StatelessWidget {
                 physics: BouncingScrollPhysics(),
                 child: FoodWithLoveProductsList(
                   products: vm.wishlists.map((e) => e.foodProduct!).toList(),
+                  onBagIt: (product, quantity) =>
+                      appVm.addToShoppingCart(context, product, quantity),
                   onPressProduct: (product) => Navigator.push(
                     context,
                     MaterialPageRoute(
