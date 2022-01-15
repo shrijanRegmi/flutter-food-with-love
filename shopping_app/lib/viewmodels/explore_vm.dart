@@ -26,6 +26,8 @@ class ExploreVm extends ChangeNotifier {
           builder: (_) => ViewAllProductScreen(
             title: 'Search Results',
             products: _products,
+            noResultsDescription:
+                'Edit your search and try again for\nbest results',
             onPressProduct: (product) {
               FWLProductProvider.addToLastSearch(
                 foodProduct: product,

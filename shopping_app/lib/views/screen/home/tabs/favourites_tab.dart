@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_with_love/food_with_love.dart';
 import 'package:shopping_app/viewmodels/vm_provider.dart';
 import 'package:shopping_app/viewmodels/wishlist_vm.dart';
+import 'package:shopping_app/views/widgets/common_widgets/empty_builder.dart';
 import '../view_product_screen.dart';
 
 class FavouritesTab extends StatelessWidget {
@@ -12,6 +13,7 @@ class FavouritesTab extends StatelessWidget {
     return VMProvider<WishlistVm>(
       vm: WishlistVm(context),
       builder: (context, vm, appVm, appUser) {
+        final _products = vm.wishlists.map((e) => e.foodProduct!).toList();
         return Column(
           children: [
             SizedBox(
@@ -22,22 +24,27 @@ class FavouritesTab extends StatelessWidget {
               height: 20.0,
             ),
             Expanded(
-              child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: FoodWithLoveProductsList(
-                  products: vm.wishlists.map((e) => e.foodProduct!).toList(),
-                  onBagIt: (product, quantity) =>
-                      appVm.addToShoppingCart(context, product, quantity),
-                  onPressProduct: (product) => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => ViewProductScreen(
-                        product: product,
+              child: _products.isEmpty
+                  ? EmptyBuilder(
+                      title: 'No items in your wishlist',
+                      subTitle: 'We believe this place will be crowded soon',
+                    )
+                  : SingleChildScrollView(
+                      physics: BouncingScrollPhysics(),
+                      child: FoodWithLoveProductsList(
+                        products: _products,
+                        onBagIt: (product, quantity) =>
+                            appVm.addToShoppingCart(context, product, quantity),
+                        onPressProduct: (product) => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => ViewProductScreen(
+                              product: product,
+                            ),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-              ),
             ),
           ],
         );
