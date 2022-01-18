@@ -27,7 +27,7 @@ class FavouritesTab extends StatelessWidget {
               child: _products.isEmpty
                   ? EmptyBuilder(
                       title: 'No items in your wishlist',
-                      subTitle: 'We believe this place will be crowded soon',
+                      subTitle: 'We believe this place will be crowded soon.',
                     )
                   : SingleChildScrollView(
                       physics: BouncingScrollPhysics(),

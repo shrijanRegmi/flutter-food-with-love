@@ -44,6 +44,7 @@ class FoodWithLoveButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(borderRadius),
         ),
+        disabledColor: kcLightGreyColor,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -88,7 +89,7 @@ class FoodWithLoveButton extends StatelessWidget {
                 '$value',
                 style: textStyle ??
                     TextStyle(
-                      color: Colors.white,
+                      color: onPressed == null ? Colors.grey : Colors.white,
                     ),
               ),
           ],

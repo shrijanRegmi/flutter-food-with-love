@@ -61,9 +61,6 @@ class _EmptyBuilderState extends State<EmptyBuilder>
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 18.0,
-                color: Color(
-                  0xff3D4A5A,
-                ),
               ),
               textAlign: TextAlign.center,
             ),
@@ -77,7 +74,6 @@ class _EmptyBuilderState extends State<EmptyBuilder>
                 '${widget.subTitle}',
                 style: TextStyle(
                   fontSize: 14.0,
-                  color: Color(0xff3D4A5A),
                 ),
                 textAlign: TextAlign.center,
               ),

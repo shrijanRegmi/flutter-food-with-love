@@ -33,10 +33,20 @@ export 'models/food_last_search_model.dart';
 export 'models/food_notification_model.dart';
 export 'models/food_with_love_user_model.dart';
 export 'models/food_shopping_cart_model.dart';
+export 'models/food_address_model.dart';
+export 'models/food_order_model.dart';
 export 'models/option_model.dart';
 
 // colors
 export 'src/shared/app_colors.dart';
+
+// enums
+export 'enums/avatar_style.dart';
+export 'enums/button_style.dart';
+export 'enums/delivery_timing.dart';
+export 'enums/food_product_style.dart';
+export 'enums/online_status.dart';
+export 'enums/order_status.dart';
 
 // services
 export 'src/services/auth_services/fwl_auth_provider.dart';

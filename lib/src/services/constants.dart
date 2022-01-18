@@ -4,3 +4,5 @@ const String shoppingCartsCol = 'shopping_carts';
 const String wishListsCol = 'wishlists';
 const String lastSearchesCol = 'last_searches';
 const String notificationsCol = 'notifications';
+const String addressesCol = 'addresses';
+const String ordersCol = 'orders';

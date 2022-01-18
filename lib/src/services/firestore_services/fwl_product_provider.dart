@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_with_love/models/food_last_search_model.dart';
+import 'package:food_with_love/models/food_order_model.dart';
 import 'package:food_with_love/models/food_wishlist_model.dart';
 import '../constants.dart';
 import 'package:food_with_love/food_with_love.dart';
@@ -347,6 +348,30 @@ class FWLProductProvider {
     }
   }
 
+  // place an order
+  static Future<void> placeOrder({
+    required final FoodOrder foodOrder,
+    final Function(FoodOrder)? onSuccess,
+    final Function(dynamic)? onError,
+  }) async {
+    try {
+      final _orderRef =
+          _ref.collection(usersCol).doc(_uid).collection(ordersCol).doc();
+      final _foodOrder = foodOrder.copyWith(
+        id: _orderRef.id,
+        uid: _uid,
+        createdAt: DateTime.now().millisecondsSinceEpoch,
+      );
+
+      await _orderRef.set(_foodOrder.toJson());
+      onSuccess?.call(_foodOrder);
+    } catch (e) {
+      print(e);
+      print('Error!!!: Placing an order');
+      onError?.call(e);
+    }
+  }
+
   // upload test products
   static Future<void> uploadTestProducts(
     final List<FoodProduct> products,
@@ -391,6 +416,13 @@ class FWLProductProvider {
     return snap.docs.map((e) => FoodLastSearch.fromJson(e.data())).toList();
   }
 
+  // get list of food orders
+  static List<FoodOrder> _ordersFromFirestore(
+    final QuerySnapshot<Map<String, dynamic>> snap,
+  ) {
+    return snap.docs.map((e) => FoodOrder.fromJson(e.data())).toList();
+  }
+
   // stream of list of products
   static Stream<List<FoodProduct>> get popularProductsList {
     return _ref
@@ -432,5 +464,16 @@ class FWLProductProvider {
         .orderBy('created_at', descending: true)
         .snapshots()
         .map(_lastSearchesFromFirestore);
+  }
+
+  // stream of list of food orders
+  static Stream<List<FoodOrder>> get ordersList {
+    return _ref
+        .collection(usersCol)
+        .doc(_uid)
+        .collection(ordersCol)
+        .orderBy('created_at', descending: true)
+        .snapshots()
+        .map(_ordersFromFirestore);
   }
 }

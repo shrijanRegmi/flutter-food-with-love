@@ -3,10 +3,12 @@ import 'package:food_with_love/food_with_love.dart';
 
 class FoodWithLoveCheckoutBlock extends StatelessWidget {
   final List<FoodShoppingCart> shoppingCarts;
+  final Function()? onPressedCheckout;
 
   const FoodWithLoveCheckoutBlock({
     Key? key,
     required this.shoppingCarts,
+    this.onPressedCheckout,
   }) : super(key: key);
 
   @override
@@ -23,7 +25,7 @@ class FoodWithLoveCheckoutBlock extends StatelessWidget {
               horizontal: 30.0,
               vertical: 10.0,
             ),
-            onPressed: _getTotalPrice() == 0 ? null : () {},
+            onPressed: _getTotalPrice() == 0 ? null : onPressedCheckout,
           )
         ],
       ),

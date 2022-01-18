@@ -6,12 +6,14 @@ import 'package:food_with_love/src/shared/app_colors.dart';
 class FoodWithLoveShoppingCartItem extends StatefulWidget {
   final FoodShoppingCart shoppingCart;
   final Function(int) onQuantityUpdate;
-  final Function(FoodShoppingCart)? onPressRemove;
+  final Function(FoodShoppingCart)? onPressed;
+  final Function(FoodShoppingCart)? onPressedRemove;
   const FoodWithLoveShoppingCartItem({
     Key? key,
     required this.shoppingCart,
     required this.onQuantityUpdate,
-    this.onPressRemove,
+    this.onPressed,
+    this.onPressedRemove,
   }) : super(key: key);
 
   @override
@@ -96,17 +98,21 @@ class _FoodWithLoveShoppingCartItemState
   }
 
   Widget _imgBuilder() {
-    return Container(
-      padding: const EdgeInsets.all(15.0),
-      decoration: BoxDecoration(
-        color: widget.shoppingCart.foodProduct?.color,
-        borderRadius: BorderRadius.circular(20.0),
-      ),
-      child: Center(
-        child: CachedNetworkImage(
-          width: 100.0,
-          height: 100.0,
-          imageUrl: '${widget.shoppingCart.foodProduct?.imgUrl}',
+    return GestureDetector(
+      onTap: () => widget.onPressed?.call(widget.shoppingCart),
+      behavior: HitTestBehavior.opaque,
+      child: Container(
+        padding: const EdgeInsets.all(15.0),
+        decoration: BoxDecoration(
+          color: widget.shoppingCart.foodProduct?.color,
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+        child: Center(
+          child: CachedNetworkImage(
+            width: 100.0,
+            height: 100.0,
+            imageUrl: '${widget.shoppingCart.foodProduct?.imgUrl}',
+          ),
         ),
       ),
     );
@@ -116,11 +122,15 @@ class _FoodWithLoveShoppingCartItemState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          '${widget.shoppingCart.foodProduct?.title}'.toUpperCase(),
-          style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.bold,
+        GestureDetector(
+          onTap: () => widget.onPressed?.call(widget.shoppingCart),
+          behavior: HitTestBehavior.opaque,
+          child: Text(
+            '${widget.shoppingCart.foodProduct?.title}'.toUpperCase(),
+            style: TextStyle(
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
         Text(
@@ -228,16 +238,16 @@ class _FoodWithLoveShoppingCartItemState
 
   Widget _removeItemBuilder() {
     return GestureDetector(
-      onTap: () => widget.onPressRemove?.call(widget.shoppingCart),
+      onTap: () => widget.onPressedRemove?.call(widget.shoppingCart),
       behavior: HitTestBehavior.opaque,
       child: Container(
         decoration: BoxDecoration(
           color: kcPrimaryColor,
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(50.0),
         ),
         padding: const EdgeInsets.symmetric(
           vertical: 3.0,
-          horizontal: 8.0,
+          horizontal: 12.0,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,

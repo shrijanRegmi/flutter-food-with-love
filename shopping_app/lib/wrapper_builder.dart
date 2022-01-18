@@ -40,6 +40,14 @@ class WrapperBuilder extends StatelessWidget {
             value: FWLNotificationProvider.notificationsList,
             initialData: <FoodNotification>[],
           ),
+          StreamProvider<List<FoodAddress>>.value(
+            value: FWLUserProvider.addressesList,
+            initialData: <FoodAddress>[],
+          ),
+          StreamProvider<List<FoodOrder>>.value(
+            value: FWLProductProvider.ordersList,
+            initialData: <FoodOrder>[],
+          ),
         ],
         child: builder(context),
       );

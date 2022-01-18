@@ -6,15 +6,15 @@ class FoodWithLoveShoppingCartList extends StatelessWidget {
   final List<FoodShoppingCart> shoppingCarts;
   final Widget Function(BuildContext, int)? itemBuilder;
   final Function(FoodShoppingCart, int)? onQuantityUpdate;
-  final Function(FoodShoppingCart)? onPressShoppingCart;
-  final Function(FoodShoppingCart)? onPressRemove;
+  final Function(FoodShoppingCart)? onPressedShoppingCart;
+  final Function(FoodShoppingCart)? onPressedRemove;
   const FoodWithLoveShoppingCartList({
     Key? key,
     required this.shoppingCarts,
     this.itemBuilder,
     this.onQuantityUpdate,
-    this.onPressShoppingCart,
-    this.onPressRemove,
+    this.onPressedShoppingCart,
+    this.onPressedRemove,
   }) : super(key: key);
 
   @override
@@ -26,19 +26,20 @@ class FoodWithLoveShoppingCartList extends StatelessWidget {
       itemBuilder: (context, index) {
         final _shoppingCart = shoppingCarts[index];
 
-        return GestureDetector(
-          onTap: () => onPressShoppingCart?.call(_shoppingCart),
-          behavior: HitTestBehavior.opaque,
-          child: itemBuilder != null
-              ? itemBuilder!(context, index)
-              : FoodWithLoveShoppingCartItem(
-                  shoppingCart: _shoppingCart,
-                  onQuantityUpdate: (int quantity) {
-                    onQuantityUpdate?.call(_shoppingCart, quantity);
-                  },
-                  onPressRemove: onPressRemove,
-                ),
-        );
+        return itemBuilder != null
+            ? GestureDetector(
+                onTap: () => onPressedShoppingCart?.call(_shoppingCart),
+                behavior: HitTestBehavior.opaque,
+                child: itemBuilder!(context, index),
+              )
+            : FoodWithLoveShoppingCartItem(
+                shoppingCart: _shoppingCart,
+                onQuantityUpdate: (int quantity) {
+                  onQuantityUpdate?.call(_shoppingCart, quantity);
+                },
+                onPressed: onPressedShoppingCart,
+                onPressedRemove: onPressedRemove,
+              );
       },
     );
   }
