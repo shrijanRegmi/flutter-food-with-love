@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:food_with_love/food_with_love.dart';
 
 final categories = <FoodCategory>[
@@ -37,76 +36,5 @@ final categories = <FoodCategory>[
     title: 'Chocolates',
     imgUrl:
         'https://i.pinimg.com/originals/4b/e2/ec/4be2ec556162e10d0fcc2aec4f06930a.png',
-  ),
-];
-
-final options = <FoodWithLoveOption>[
-  FoodWithLoveOption(
-    leftIcon: Icon(
-      Icons.person,
-      color: Colors.grey,
-    ),
-    rightIcon: Icon(
-      Icons.keyboard_arrow_right,
-    ),
-    title: 'Edit Profile',
-    onPressed: () {},
-  ),
-  FoodWithLoveOption(
-    leftIcon: Icon(
-      Icons.local_shipping,
-      color: Colors.grey,
-    ),
-    rightIcon: Icon(
-      Icons.keyboard_arrow_right,
-    ),
-    title: 'Shipping Address',
-    onPressed: () {},
-  ),
-  FoodWithLoveOption(
-    leftIcon: Icon(
-      Icons.favorite,
-      color: Colors.grey,
-    ),
-    rightIcon: Icon(
-      Icons.keyboard_arrow_right,
-    ),
-    title: 'Wishlist',
-    onPressed: () {},
-  ),
-  FoodWithLoveOption(
-    leftIcon: Icon(
-      Icons.menu_book_rounded,
-      color: Colors.grey,
-    ),
-    rightIcon: Icon(
-      Icons.keyboard_arrow_right,
-    ),
-    title: 'Order History',
-    onPressed: () {},
-  ),
-  FoodWithLoveOption(
-    leftIcon: Icon(
-      Icons.notifications,
-      color: Colors.grey,
-    ),
-    rightIcon: Icon(
-      Icons.keyboard_arrow_right,
-    ),
-    title: 'Notifications',
-    onPressed: () {},
-  ),
-  FoodWithLoveOption(
-    leftIcon: Icon(
-      Icons.exit_to_app,
-      color: Colors.grey,
-    ),
-    rightIcon: Icon(
-      Icons.keyboard_arrow_right,
-    ),
-    title: 'Log out',
-    onPressed: () async {
-      await FWLAuthProvider.signOut();
-    },
   ),
 ];

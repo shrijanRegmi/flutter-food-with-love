@@ -55,7 +55,7 @@ class FoodOrder {
       uid: data['uid'],
       createdAt: data['created_at'],
       foodProducts: List<String>.from(data['food_products'] ?? []),
-      foodAddress: data['food_address'],
+      foodAddress: FoodAddress.fromJson(data['food_address'] ?? {}),
       deliveryTiming: DeliveryTiming.values[data['delivery_timing'] ?? 0],
       orderStatus: OrderStatus.values[data['order_status'] ?? 0],
       productTotal: data['product_total'],

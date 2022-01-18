@@ -1,9 +1,89 @@
 import 'package:flutter/material.dart';
 import 'package:food_with_love/food_with_love.dart';
-import 'package:shopping_app/test_data.dart';
+import 'package:shopping_app/views/screen/home/orders_screen.dart';
 
 class ProfileTab extends StatelessWidget {
-  const ProfileTab({Key? key}) : super(key: key);
+  ProfileTab({Key? key}) : super(key: key);
+
+  List<FoodWithLoveOption> options(final BuildContext context) {
+    return <FoodWithLoveOption>[
+      FoodWithLoveOption(
+        leftIcon: Icon(
+          Icons.person,
+          color: Colors.grey,
+        ),
+        rightIcon: Icon(
+          Icons.keyboard_arrow_right,
+        ),
+        title: 'Edit Profile',
+        onPressed: () {},
+      ),
+      FoodWithLoveOption(
+        leftIcon: Icon(
+          Icons.local_shipping,
+          color: Colors.grey,
+        ),
+        rightIcon: Icon(
+          Icons.keyboard_arrow_right,
+        ),
+        title: 'Shipping Address',
+        onPressed: () {},
+      ),
+      FoodWithLoveOption(
+        leftIcon: Icon(
+          Icons.favorite,
+          color: Colors.grey,
+        ),
+        rightIcon: Icon(
+          Icons.keyboard_arrow_right,
+        ),
+        title: 'Wishlist',
+        onPressed: () {},
+      ),
+      FoodWithLoveOption(
+        leftIcon: Icon(
+          Icons.menu_book_rounded,
+          color: Colors.grey,
+        ),
+        rightIcon: Icon(
+          Icons.keyboard_arrow_right,
+        ),
+        title: 'Order History',
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => OrderScreen(),
+            ),
+          );
+        },
+      ),
+      FoodWithLoveOption(
+        leftIcon: Icon(
+          Icons.notifications,
+          color: Colors.grey,
+        ),
+        rightIcon: Icon(
+          Icons.keyboard_arrow_right,
+        ),
+        title: 'Notifications',
+        onPressed: () {},
+      ),
+      FoodWithLoveOption(
+        leftIcon: Icon(
+          Icons.exit_to_app,
+          color: Colors.grey,
+        ),
+        rightIcon: Icon(
+          Icons.keyboard_arrow_right,
+        ),
+        title: 'Log out',
+        onPressed: () async {
+          await FWLAuthProvider.signOut();
+        },
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +109,7 @@ class ProfileTab extends StatelessWidget {
                   height: 30.0,
                 ),
                 FoodWithLoveOptionsList(
-                  options: options,
+                  options: options(context),
                 ),
               ],
             ),
