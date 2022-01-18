@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 
 class CheckoutVm extends ChangeNotifier {
   final BuildContext context;
-  final List<FoodShoppingCart> shoppingCarts;
+  final List<FoodShoppingCart>? shoppingCarts;
   CheckoutVm(this.context, this.shoppingCarts);
 
   int _step = 1;
@@ -31,7 +31,7 @@ class CheckoutVm extends ChangeNotifier {
   // get shipping price
   int getShippingPrice() {
     int _shipping = 0;
-    shoppingCarts.forEach((cart) {
+    shoppingCarts?.forEach((cart) {
       _shipping += (cart.foodProduct?.shippingPrice ?? 0);
     });
     return _shipping;
@@ -40,7 +40,7 @@ class CheckoutVm extends ChangeNotifier {
   // get total price
   int getTotalPrice() {
     int _total = 0;
-    shoppingCarts.forEach((cart) {
+    shoppingCarts?.forEach((cart) {
       _total += ((cart.foodProduct?.price ?? 0) * (cart.quantity ?? 1));
     });
     return _total;
@@ -136,12 +136,12 @@ class CheckoutVm extends ChangeNotifier {
 
   // place an order
   void placeOrder() {
-    if (shoppingCarts.isNotEmpty &&
+    if ((shoppingCarts?.isNotEmpty ?? false) &&
         _selectedAddress != null &&
         _selectedDeliveryTiming != null) {
       updateIsLoading(true);
       final _order = FoodOrder(
-        foodProducts: shoppingCarts.map((e) => e.foodProductId!).toList(),
+        foodProducts: shoppingCarts?.map((e) => e.foodProductId!).toList(),
         foodAddress: _selectedAddress,
         deliveryTiming: _selectedDeliveryTiming,
         orderStatus: OrderStatus.none,

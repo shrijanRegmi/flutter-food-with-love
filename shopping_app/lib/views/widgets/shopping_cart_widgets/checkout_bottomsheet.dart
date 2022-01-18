@@ -42,10 +42,12 @@ class CheckoutBottomSheet extends StatelessWidget {
 }
 
 class CheckoutBottomSheetContent extends StatelessWidget {
-  final List<FoodShoppingCart> shoppingCarts;
+  final List<FoodShoppingCart>? shoppingCarts;
+  final bool showingOnlyAddress;
   const CheckoutBottomSheetContent({
     Key? key,
-    required this.shoppingCarts,
+    this.shoppingCarts = const [],
+    this.showingOnlyAddress = false,
   }) : super(key: key);
 
   @override
@@ -121,7 +123,7 @@ class CheckoutBottomSheetContent extends StatelessWidget {
         SizedBox(
           height: 10.0,
         ),
-        if (vm.addresses.isNotEmpty)
+        if (vm.addresses.isNotEmpty && !showingOnlyAddress)
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
             child: FoodWithLoveButton.filled(

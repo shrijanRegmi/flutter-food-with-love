@@ -3,23 +3,13 @@ import 'package:food_with_love/food_with_love.dart';
 import 'package:shopping_app/views/screen/home/notifications_screen.dart';
 import 'package:shopping_app/views/screen/home/orders_screen.dart';
 import 'package:shopping_app/views/screen/home/wishlists_screen.dart';
+import 'package:shopping_app/views/widgets/shopping_cart_widgets/checkout_bottomsheet.dart';
 
 class ProfileTab extends StatelessWidget {
   ProfileTab({Key? key}) : super(key: key);
 
   List<FoodWithLoveOption> options(final BuildContext context) {
     return <FoodWithLoveOption>[
-      FoodWithLoveOption(
-        leftIcon: Icon(
-          Icons.person,
-          color: Colors.grey,
-        ),
-        rightIcon: Icon(
-          Icons.keyboard_arrow_right,
-        ),
-        title: 'Edit Profile',
-        onPressed: () {},
-      ),
       FoodWithLoveOption(
         leftIcon: Icon(
           Icons.local_shipping,
@@ -29,7 +19,21 @@ class ProfileTab extends StatelessWidget {
           Icons.keyboard_arrow_right,
         ),
         title: 'Shipping Address',
-        onPressed: () {},
+        onPressed: () async {
+          await showModalBottomSheet(
+            context: context,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.0),
+                topRight: Radius.circular(20.0),
+              ),
+            ),
+            isScrollControlled: true,
+            builder: (context) => CheckoutBottomSheetContent(
+              showingOnlyAddress: true,
+            ),
+          );
+        },
       ),
       FoodWithLoveOption(
         leftIcon: Icon(

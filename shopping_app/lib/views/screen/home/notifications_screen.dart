@@ -23,7 +23,6 @@ class NotificationScreen extends StatelessWidget {
               ),
               Expanded(
                 child: EmptyBuilder(
-                  lottieUrl: 'assets/lottie/notifications.json',
                   title: 'No items in your notifications',
                   subTitle: 'We believe this place will be crowded soon.',
                 ),
