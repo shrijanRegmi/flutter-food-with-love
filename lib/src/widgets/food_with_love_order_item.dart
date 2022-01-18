@@ -57,7 +57,7 @@ class FoodWithLoveOrderItem extends StatelessWidget {
           ),
         ),
         SizedBox(
-          width: 20.0,
+          width: 15.0,
         ),
         if (order.createdAt != null)
           Row(

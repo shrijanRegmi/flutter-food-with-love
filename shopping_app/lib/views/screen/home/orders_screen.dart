@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_with_love/food_with_love.dart';
 import 'package:shopping_app/viewmodels/order_vm.dart';
 import 'package:shopping_app/viewmodels/vm_provider.dart';
+import 'package:shopping_app/views/widgets/common_widgets/empty_builder.dart';
 import 'package:shopping_app/views/widgets/common_widgets/filled_appbar.dart';
 
 class OrderScreen extends StatelessWidget {
@@ -20,11 +21,16 @@ class OrderScreen extends StatelessWidget {
                 title: 'My Orders',
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  child: FoodWithLoveOrdersList(
-                    orders: vm.orders,
-                  ),
-                ),
+                child: vm.orders.isEmpty
+                    ? EmptyBuilder(
+                        title: "You haven't placed any orders yet",
+                        subTitle: 'We believe this place will be crowded soon.',
+                      )
+                    : SingleChildScrollView(
+                        child: FoodWithLoveOrdersList(
+                          orders: vm.orders,
+                        ),
+                      ),
               ),
             ],
           ),

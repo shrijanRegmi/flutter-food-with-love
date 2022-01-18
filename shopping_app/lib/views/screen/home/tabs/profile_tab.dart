@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_with_love/food_with_love.dart';
+import 'package:shopping_app/views/screen/home/notifications_screen.dart';
 import 'package:shopping_app/views/screen/home/orders_screen.dart';
+import 'package:shopping_app/views/screen/home/wishlists_screen.dart';
 
 class ProfileTab extends StatelessWidget {
   ProfileTab({Key? key}) : super(key: key);
@@ -38,7 +40,14 @@ class ProfileTab extends StatelessWidget {
           Icons.keyboard_arrow_right,
         ),
         title: 'Wishlist',
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => WishlistScreen(),
+            ),
+          );
+        },
       ),
       FoodWithLoveOption(
         leftIcon: Icon(
@@ -67,7 +76,14 @@ class ProfileTab extends StatelessWidget {
           Icons.keyboard_arrow_right,
         ),
         title: 'Notifications',
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => NotificationScreen(),
+            ),
+          );
+        },
       ),
       FoodWithLoveOption(
         leftIcon: Icon(
