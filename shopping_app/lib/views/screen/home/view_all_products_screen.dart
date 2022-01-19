@@ -30,30 +30,9 @@ class ViewAllProductScreen extends StatelessWidget {
                 SizedBox(
                   height: 10.0,
                 ),
-                Stack(
-                  children: [
-                    Positioned.fill(
-                      left: 0.0,
-                      right: 0.0,
-                      child: Center(child: FoodWithLoveHeader(title: title)),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 10.0),
-                        child: IconButton(
-                          splashRadius: 30.0,
-                          onPressed: () => Navigator.pop(context),
-                          icon: Icon(
-                            Icons.arrow_back_ios,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                _headerBuilder(context),
                 SizedBox(
-                  height: 20.0,
+                  height: 10.0,
                 ),
                 Expanded(
                   child: products.isEmpty
@@ -86,6 +65,33 @@ class ViewAllProductScreen extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget _headerBuilder(final BuildContext context) {
+    return Stack(
+      children: [
+        Positioned.fill(
+          left: 0.0,
+          right: 0.0,
+          child: Center(
+            child: FoodWithLoveHeader(title: title),
+          ),
+        ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 10.0),
+            child: IconButton(
+              splashRadius: 30.0,
+              onPressed: () => Navigator.pop(context),
+              icon: Icon(
+                Icons.arrow_back_ios_new_rounded,
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

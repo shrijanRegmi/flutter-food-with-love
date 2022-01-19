@@ -5,15 +5,17 @@ import 'package:food_with_love/src/shared/app_colors.dart';
 
 class FoodWithLoveCategoriesItem extends StatelessWidget {
   final FoodCategory category;
+  final bool fromGridView;
   const FoodWithLoveCategoriesItem({
     Key? key,
     required this.category,
+    this.fromGridView = false,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(right: 20.0),
+      padding: EdgeInsets.only(right: fromGridView ? 0.0 : 20.0),
       child: Column(
         children: [
           Expanded(

@@ -18,9 +18,6 @@ class NotificationScreen extends StatelessWidget {
               FilledAppbar(
                 title: 'My Notifications',
               ),
-              SizedBox(
-                height: 20.0,
-              ),
               Expanded(
                 child: EmptyBuilder(
                   title: 'No items in your notifications',

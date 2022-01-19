@@ -21,9 +21,6 @@ class WishlistScreen extends StatelessWidget {
               FilledAppbar(
                 title: 'My Wishlists',
               ),
-              SizedBox(
-                height: 20.0,
-              ),
               Expanded(
                 child: _products.isEmpty
                     ? EmptyBuilder(
