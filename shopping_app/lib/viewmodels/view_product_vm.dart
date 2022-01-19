@@ -11,6 +11,8 @@ class ViewProductVm extends ChangeNotifier {
   bool _iconActive = false;
 
   bool get iconActive => _iconActive;
+  List<FoodProduct> get popularProducts =>
+      Provider.of<List<FoodProduct>>(context);
 
   // init function
   void onInit(final FoodWithLoveUser appUser) {

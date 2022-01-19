@@ -79,7 +79,9 @@ class ViewProductScreen extends StatelessWidget {
             height: 10.0,
           ),
           FoodWithLoveSimilarProductsList(
-            products: [],
+            products: vm.popularProducts
+                .where((element) => element.id != product.id)
+                .toList(),
             onPressProduct: (product) => Navigator.push(
               context,
               MaterialPageRoute(
