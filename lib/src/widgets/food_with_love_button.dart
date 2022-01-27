@@ -70,8 +70,8 @@ class FoodWithLoveButton extends StatelessWidget {
               ),
             if (loading)
               Container(
-                width: 30.0,
-                height: 30.0,
+                width: 25.0,
+                height: 25.0,
                 child: CircularProgressIndicator(
                   color: Colors.white,
                 ),
