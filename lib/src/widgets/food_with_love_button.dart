@@ -12,6 +12,7 @@ class FoodWithLoveButton extends StatelessWidget {
   final Function()? onPressed;
   final EdgeInsetsGeometry? padding;
   final button_style.ButtonStyle buttonStyle;
+  final bool loading;
 
   const FoodWithLoveButton.filled({
     this.value,
@@ -21,6 +22,7 @@ class FoodWithLoveButton extends StatelessWidget {
     this.borderRadius = 2.0,
     this.onPressed,
     this.padding,
+    this.loading = false,
   })  : buttonStyle = button_style.ButtonStyle.filled,
         borderColor = Colors.black;
 
@@ -32,6 +34,7 @@ class FoodWithLoveButton extends StatelessWidget {
     this.borderRadius = 2.0,
     this.onPressed,
     this.padding,
+    this.loading = false,
   })  : buttonStyle = button_style.ButtonStyle.bordered,
         color = kcPrimaryColor;
 
@@ -60,6 +63,18 @@ class FoodWithLoveButton extends StatelessWidget {
                     TextStyle(
                       color: Colors.white,
                     ),
+              ),
+            if (loading)
+              SizedBox(
+                width: 20.0,
+              ),
+            if (loading)
+              Container(
+                width: 30.0,
+                height: 30.0,
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
               ),
           ],
         ),
